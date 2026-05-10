@@ -387,7 +387,9 @@ If you modify the script:
 3. Under "Version", select **New version**
 4. Click **Deploy**
 
-The URL stays the same after updating.
+**Important**: If you create a **new deployment** (instead of editing the existing one), the URL changes! In that case, update the URL in:
+- `api/submit.js` (Vercel serverless proxy)
+- `src/register.html` (fallback scriptUrl)
 
 ## Troubleshooting
 

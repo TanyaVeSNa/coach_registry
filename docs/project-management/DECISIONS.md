@@ -123,3 +123,10 @@
 **Decision**: Refactor the registry into a configurable white-label product that other coaching organizations can deploy.
 **Rationale**: A coaching school requested their own copy of the registry. This validates the product beyond ICF Cyprus. Making the branding configurable (logo, colors, fonts, title, data source) allows reuse without forking.
 **Trade-offs**: Requires refactoring hardcoded ICF Cyprus references into config. Increases complexity of the codebase but enables growth.
+
+### D-017: Direct photo upload via base64
+**Date**: 2026-05-10
+**Decision**: Replace URL-based photo input with direct file upload. Photo is converted to base64 in browser, sent as JSON to Vercel proxy, forwarded to Apps Script which saves to Google Drive.
+**Rationale**: Previous flow required coaches to upload photo to Google Drive, get a sharing URL, and paste it — too complex for non-technical users. Direct upload is one click.
+**Technical details**: Vercel proxy sends JSON body (Content-Type: text/plain) instead of URLSearchParams — URLSearchParams truncated large base64 payloads. Apps Script reads `e.postData.contents`. Max file size: 5 MB (validated client-side). Accepted: JPEG, PNG, WebP.
+**Trade-offs**: Larger payload (~7 MB for 5 MB photo). Vercel body limit increased to 10 MB.

@@ -8,20 +8,13 @@
 
 ## Future Goals (by priority)
 
-### G-024: Update WordPress Links
-**Status**: Planned
-**Priority**: 🔴 High — next
-**Description**: Update links on the ICF Cyprus WordPress page (`icf-chapters.org/icf-cyprus/find-a-coach/`) to point to the new custom domain `coaches.icf-cyprus.com` instead of old Vercel/GitHub Pages URLs. Also update registration page link.
-**Action**: Ask WP admin to update the links, or provide exact URLs to replace.
+### G-024: Update WordPress Links — Done (moved to Achieved)
 
-### G-023: Photo Upload Rework
-**Status**: Planned
-**Priority**: 🔴 High
-**Description**: Replace the current photo flow (coach pastes Google Drive URL → Apps Script copies file) with direct file upload through the registration form. Current flow is confusing for coaches. Consider: upload via Vercel Serverless Function to Google Drive, or upload via Apps Script with base64 encoding.
+### G-023: Photo Upload Rework — Done (moved to Achieved)
 
 ### G-025: White-Label Product (Reusable Registry)
 **Status**: Planned
-**Priority**: 🟡 Medium
+**Priority**: 🔴 High — next
 **Description**: Refactor the registry into a configurable white-label product that can be deployed for other coaching schools and organizations. A coaching school requested their own copy. Need to extract ICF Cyprus-specific branding, data sources, and config into a separate layer so the core engine is reusable. Each instance gets its own: branding (logo, colors, fonts), Google Sheet, domain, i18n overrides.
 **Action**: Identify all hardcoded ICF Cyprus references, design a config system, create deployment guide for new instances.
 
@@ -69,6 +62,34 @@
 ---
 
 ## Achieved Goals
+
+### G-024: Update WordPress Links
+**Status**: Achieved
+**Phase**: 2
+**Completed**: 2026-05-10
+
+Created a new "Find a Coach – NEW" page on the ICF Cyprus WordPress site with links to the custom domain `coaches.icf-cyprus.com` (catalog) and `coaches.icf-cyprus.com/src/register.html` (registration).
+
+---
+
+### G-023: Photo Upload Rework
+**Status**: Achieved
+**Phase**: 2
+**Completed**: 2026-05-10
+
+Replaced URL-based photo input with direct file upload in registration form. Coach selects a photo from their device (JPEG/PNG/WebP, max 5 MB), it's converted to base64 in the browser, sent via Vercel serverless proxy to Google Apps Script, which decodes and saves to Google Drive. Thumbnail URL stored in Google Sheet column E.
+
+**Changes**:
+- `src/js/registration.js` — file input with preview, client-side validation, base64 conversion
+- `src/js/i18n.js` — new keys for photo upload UI (EN/RU/EL)
+- `src/styles/main.css` — photo upload styling
+- `api/submit.js` — JSON body (instead of URLSearchParams), 10 MB body limit, new Apps Script URL
+- Apps Script `doPost` — reads `e.postData.contents`, decodes base64, saves to Drive
+- `src/register.html` — updated Apps Script URL
+
+**Key fix**: URLSearchParams truncated large base64 payloads. Switched to JSON body with `text/plain` content type.
+
+---
 
 ### G-018: Coach Profile Modal
 **Status**: Achieved

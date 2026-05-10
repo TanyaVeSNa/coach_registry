@@ -61,19 +61,15 @@
 
 ---
 
-## G-024: Update WordPress Links
+## G-024: Update WordPress Links — Done
 
-### F-019: Replace old URLs on WP page
-**Priority**: High
-**Description**: Update links on ICF Cyprus WordPress page to point to `coaches.icf-cyprus.com` (catalog) and `coaches.icf-cyprus.com/src/register.html` (registration). Remove any references to old Vercel/GitHub Pages URLs.
+### F-019: Replace old URLs on WP page — Done
 
 ---
 
-## G-023: Photo Upload Rework
+## G-023: Photo Upload Rework — Done
 
-### F-018: Direct file upload in registration form
-**Priority**: High
-**Description**: Replace URL-based photo flow with direct file upload. Coach selects a file from their device, it gets uploaded to Google Drive via Vercel Serverless Function or Apps Script. No need to understand Google Drive sharing or URL formats.
+### F-018: Direct file upload in registration form — Done
 
 ---
 
