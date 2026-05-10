@@ -9,6 +9,18 @@
  * Body: JSON with form data
  */
 
+/**
+ * Vercel config: increase body size limit to accommodate
+ * base64-encoded photo uploads (~7 MB for a 5 MB file).
+ */
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 const APPS_SCRIPT_URL =
   'https://script.google.com/macros/s/AKfycbydF_JjV1HaBHhW-TtOpQY5z4K6pg7mZ_qezW5wDKzDsLb-IFweXFQA5tyunHnxTeaU/exec';
 

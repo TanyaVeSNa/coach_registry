@@ -22,6 +22,12 @@ import { esc } from './utils.js';
 
 const BIO_MAX_WORDS = 300;
 const PREVIEW_DEBOUNCE_MS = 500;
+const PHOTO_MAX_BYTES = 5 * 1024 * 1024; // 5 MB
+const PHOTO_ACCEPTED_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+];
 
 /** Specialization values mapped to i18n keys */
 const SPECIALIZATIONS = [
@@ -93,6 +99,25 @@ function debounce(fn, ms) {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => fn.apply(this, args), ms);
   };
+}
+
+/**
+ * Read a File as a base64-encoded string (data URL without
+ * the prefix). Returns only the base64 payload.
+ * @param {File} file
+ * @returns {Promise<string>}
+ */
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      // result is "data:<mime>;base64,PAYLOAD"
+      const base64 = reader.result.split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
 }
 
 /**
@@ -216,6 +241,51 @@ function renderInput(opts) {
         name="${opts.id}"${placeholder}${ariaDesc}${reqAttr}
       >
       ${helpHtml}
+      <span class="icf-form__error" id="${errorId}"
+        role="alert" aria-live="polite"></span>
+    </div>`;
+}
+
+/**
+ * Render a file upload field for the coach photo.
+ * Uses a hidden native file input with a styled button
+ * and image preview area.
+ * @param {string} id - Element ID for the file input
+ * @returns {string} HTML
+ */
+function renderPhotoUpload(id) {
+  const errorId = `${id}-error`;
+  const helpId = `${id}-help`;
+
+  return `
+    <div class="icf-form__group">
+      <label class="icf-form__label">
+        <span data-i18n="regLabelPhoto">${esc(t('regLabelPhoto'))}</span>
+      </label>
+      <div class="icf-form__photo-upload" id="${id}-area">
+        <div class="icf-form__photo-preview" id="${id}-preview"
+          aria-hidden="true"></div>
+        <div class="icf-form__photo-info">
+          <button type="button"
+            class="icf-form__photo-btn"
+            id="${id}-btn"
+            aria-describedby="${helpId}">
+            <span data-i18n="regPhotoSelect">${esc(t('regPhotoSelect'))}</span>
+          </button>
+          <span class="icf-form__photo-name"
+            id="${id}-name"></span>
+        </div>
+        <input
+          type="file"
+          id="${id}"
+          name="${id}"
+          accept="image/jpeg,image/png,image/webp"
+          class="icf-form__photo-input"
+          aria-describedby="${helpId} ${errorId}"
+        >
+      </div>
+      <span class="icf-form__help" id="${helpId}"
+        data-i18n="regPhotoHelp">${esc(t('regPhotoHelp'))}</span>
       <span class="icf-form__error" id="${errorId}"
         role="alert" aria-live="polite"></span>
     </div>`;
@@ -471,10 +541,10 @@ function renderPricingSection() {
  * @returns {string} HTML
  */
 function buildPreviewCard(data) {
-  // Avatar
+  // Avatar — photoPreviewUrl is an object URL from file input
   let avatar;
-  if (data.photo && isValidUrl(data.photo)) {
-    avatar = `<img class="icf-avatar" src="${esc(data.photo)}"
+  if (data.photoPreviewUrl) {
+    avatar = `<img class="icf-avatar" src="${esc(data.photoPreviewUrl)}"
       alt="${esc(data.name || '')}" loading="lazy">`;
   } else {
     const name = data.name || '?';
@@ -570,14 +640,7 @@ function buildFormHTML() {
           placeholderKey: 'regPlaceholderName',
         })}
 
-        ${renderInput({
-          id: uid('photo'),
-          labelKey: 'regLabelPhoto',
-          type: 'url',
-          required: false,
-          placeholderKey: 'regPlaceholderPhoto',
-          helpKey: 'regPhotoHelp',
-        })}
+        ${renderPhotoUpload(uid('photo'))}
       </div>
 
       <!-- Section 2: Professional Info -->
@@ -740,7 +803,6 @@ function collectFormData(form) {
 
   return {
     name: val(uid('name')),
-    photo: val(uid('photo')),
     specializations: checked(uid('specializations')),
     icfLevel: radio(uid('icf-level')),
     languages: checked(uid('languages')),
@@ -835,11 +897,24 @@ function validateForm(form, data) {
     firstError = firstError || uid('name');
   }
 
-  // Photo URL — optional, but if provided must be valid
-  if (data.photo && !isValidUrl(data.photo)) {
-    showError(form, uid('photo'), 'regErrorUrl');
-    valid = false;
-    firstError = firstError || uid('photo');
+  // Photo file — optional, but if provided must be valid
+  const photoInput = form.querySelector(`#${uid('photo')}`);
+  const photoFile = photoInput && photoInput.files
+    && photoInput.files[0];
+  if (photoFile) {
+    if (!PHOTO_ACCEPTED_TYPES.includes(photoFile.type)) {
+      showError(
+        form, uid('photo'), 'regErrorPhotoType'
+      );
+      valid = false;
+      firstError = firstError || uid('photo');
+    } else if (photoFile.size > PHOTO_MAX_BYTES) {
+      showError(
+        form, uid('photo'), 'regErrorPhotoSize'
+      );
+      valid = false;
+      firstError = firstError || uid('photo');
+    }
   }
 
   // Specializations — at least one
@@ -945,6 +1020,93 @@ export function renderRegistrationForm(container, onSubmit) {
   );
   const submitBtn = form.querySelector('.icf-form__submit');
 
+  // --- Photo file input ---
+  const photoInput = form.querySelector(
+    `#${uid('photo')}`
+  );
+  const photoBtn = form.querySelector(
+    `#${uid('photo')}-btn`
+  );
+  const photoPreview = form.querySelector(
+    `#${uid('photo')}-preview`
+  );
+  const photoNameEl = form.querySelector(
+    `#${uid('photo')}-name`
+  );
+
+  /**
+   * Object URL for the selected photo file, used in
+   * the live card preview. Revoked on file change to
+   * avoid memory leaks.
+   * @type {string|null}
+   */
+  let photoPreviewUrl = null;
+
+  if (photoBtn && photoInput) {
+    photoBtn.addEventListener('click', () => {
+      photoInput.click();
+    });
+
+    photoInput.addEventListener('change', () => {
+      const file = photoInput.files && photoInput.files[0];
+
+      // Revoke previous object URL
+      if (photoPreviewUrl) {
+        URL.revokeObjectURL(photoPreviewUrl);
+        photoPreviewUrl = null;
+      }
+
+      if (!file) {
+        photoPreview.innerHTML = '';
+        photoPreview.setAttribute('aria-hidden', 'true');
+        photoNameEl.textContent = '';
+        photoBtn.querySelector('span').textContent =
+          t('regPhotoSelect');
+        updatePreview();
+        return;
+      }
+
+      // Validate type and size inline for instant feedback
+      if (!PHOTO_ACCEPTED_TYPES.includes(file.type)) {
+        showError(
+          form, uid('photo'), 'regErrorPhotoType'
+        );
+        return;
+      }
+      if (file.size > PHOTO_MAX_BYTES) {
+        showError(
+          form, uid('photo'), 'regErrorPhotoSize'
+        );
+        return;
+      }
+
+      // Clear any previous error
+      const errEl = form.querySelector(
+        `#${uid('photo')}-error`
+      );
+      if (errEl) errEl.textContent = '';
+
+      // Show preview
+      photoPreviewUrl = URL.createObjectURL(file);
+      photoPreview.innerHTML =
+        `<img src="${esc(photoPreviewUrl)}" alt=""` +
+        ' class="icf-form__photo-thumb">';
+      photoPreview.removeAttribute('aria-hidden');
+
+      // Show file info
+      const sizeMB = (file.size / (1024 * 1024))
+        .toFixed(1);
+      photoNameEl.textContent =
+        `${file.name} (${sizeMB} MB)`;
+
+      // Update button text
+      photoBtn.querySelector('span').textContent =
+        t('regPhotoChange');
+
+      updatePreview();
+    });
+  }
+
   // --- "By request" checkbox toggles price inputs ---
   const byReqCheckbox = form.querySelector(
     `#${uid('price-by-request')}`
@@ -1038,6 +1200,7 @@ export function renderRegistrationForm(container, onSubmit) {
   function updatePreview() {
     if (!previewContainer) return;
     const data = collectFormData(form);
+    data.photoPreviewUrl = photoPreviewUrl || '';
     previewContainer.innerHTML = buildPreviewCard(data);
   }
 
@@ -1072,14 +1235,36 @@ export function renderRegistrationForm(container, onSubmit) {
       t('regSubmitting');
     submitBtn.classList.add('icf-form__submit--loading');
 
-    // Call onSubmit and handle result
-    onSubmit(data).then(() => {
+    /**
+     * Convert photo file to base64 before submit.
+     * Returns a promise that resolves with the data
+     * (with photoBase64 + photoFilename added if a
+     * file was selected).
+     */
+    const photoFile = photoInput && photoInput.files
+      && photoInput.files[0];
+
+    const prepareData = photoFile
+      ? readFileAsBase64(photoFile).then((b64) => {
+        data.photoBase64 = b64;
+        data.photoFilename = photoFile.name;
+        return data;
+      })
+      : Promise.resolve(data);
+
+    // Remove preview-only fields before sending
+    prepareData.then((d) => {
+      delete d.photoPreviewUrl;
+      return onSubmit(d);
+    }).then(() => {
       // onSubmit handles redirect
     }).catch(() => {
       submitBtn.disabled = false;
       submitBtn.querySelector('span').textContent =
         t('regSubmit');
-      submitBtn.classList.remove('icf-form__submit--loading');
+      submitBtn.classList.remove(
+        'icf-form__submit--loading'
+      );
     });
   });
 }

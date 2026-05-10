@@ -318,9 +318,9 @@ const dictionary = {
     el: '\u038C\u03BD\u03BF\u03BC\u03B1',
   },
   regLabelPhoto: {
-    en: 'Photo URL',
-    ru: '\u0421\u0441\u044B\u043B\u043A\u0430 \u043D\u0430 \u0444\u043E\u0442\u043E',
-    el: 'URL \u03C6\u03C9\u03C4\u03BF\u03B3\u03C1\u03B1\u03C6\u03AF\u03B1\u03C2',
+    en: 'Photo',
+    ru: '\u0424\u043E\u0442\u043E',
+    el: '\u03A6\u03C9\u03C4\u03BF\u03B3\u03C1\u03B1\u03C6\u03AF\u03B1',
   },
   regLabelSpecializations: {
     en: 'Specializations',
@@ -440,9 +440,9 @@ const dictionary = {
     el: '\u03A4\u03BF \u03C0\u03BB\u03AE\u03C1\u03B5\u03C2 \u03CC\u03BD\u03BF\u03BC\u03AC \u03C3\u03B1\u03C2',
   },
   regPlaceholderPhoto: {
-    en: 'https://...',
-    ru: 'https://...',
-    el: 'https://...',
+    en: 'JPEG, PNG or WebP, max 5 MB',
+    ru: 'JPEG, PNG или WebP, макс. 5 МБ',
+    el: 'JPEG, PNG ή WebP, μέγ. 5 MB',
   },
   regPlaceholderBio: {
     en: 'Tell potential clients about yourself, your experience, and approach...',
@@ -487,9 +487,29 @@ const dictionary = {
 
   // Photo helper text
   regPhotoHelp: {
-    en: 'Upload your photo to Google Drive or Imgur, then paste the link here',
-    ru: '\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 \u0444\u043E\u0442\u043E \u043D\u0430 Google Drive \u0438\u043B\u0438 Imgur \u0438 \u0432\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u0441\u0441\u044B\u043B\u043A\u0443 \u0441\u044E\u0434\u0430',
-    el: '\u0391\u03BD\u03B5\u03B2\u03AC\u03C3\u03C4\u03B5 \u03C4\u03B7 \u03C6\u03C9\u03C4\u03BF\u03B3\u03C1\u03B1\u03C6\u03AF\u03B1 \u03C3\u03C4\u03BF Google Drive \u03AE Imgur \u03BA\u03B1\u03B9 \u03B5\u03C0\u03B9\u03BA\u03BF\u03BB\u03BB\u03AE\u03C3\u03C4\u03B5 \u03C4\u03BF\u03BD \u03C3\u03CD\u03BD\u03B4\u03B5\u03C3\u03BC\u03BF \u03B5\u03B4\u03CE',
+    en: 'JPEG, PNG or WebP, max 5 MB',
+    ru: 'JPEG, PNG \u0438\u043B\u0438 WebP, \u043C\u0430\u043A\u0441. 5 \u041C\u0411',
+    el: 'JPEG, PNG \u03AE WebP, \u03BC\u03AD\u03B3. 5 MB',
+  },
+  regPhotoSelect: {
+    en: 'Choose photo',
+    ru: '\u0412\u044B\u0431\u0440\u0430\u0442\u044C \u0444\u043E\u0442\u043E',
+    el: '\u0395\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5 \u03C6\u03C9\u03C4\u03BF\u03B3\u03C1\u03B1\u03C6\u03AF\u03B1',
+  },
+  regPhotoChange: {
+    en: 'Change photo',
+    ru: '\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0444\u043E\u0442\u043E',
+    el: '\u0391\u03BB\u03BB\u03B1\u03B3\u03AE \u03C6\u03C9\u03C4\u03BF\u03B3\u03C1\u03B1\u03C6\u03AF\u03B1\u03C2',
+  },
+  regErrorPhotoSize: {
+    en: 'Photo must be under 5 MB',
+    ru: '\u0424\u043E\u0442\u043E \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C \u043C\u0435\u043D\u0435\u0435 5 \u041C\u0411',
+    el: '\u0397 \u03C6\u03C9\u03C4\u03BF\u03B3\u03C1\u03B1\u03C6\u03AF\u03B1 \u03C0\u03C1\u03AD\u03C0\u03B5\u03B9 \u03BD\u03B1 \u03B5\u03AF\u03BD\u03B1\u03B9 \u03BA\u03AC\u03C4\u03C9 \u03B1\u03C0\u03CC 5 MB',
+  },
+  regErrorPhotoType: {
+    en: 'Please upload JPEG, PNG or WebP',
+    ru: '\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u0435 JPEG, PNG \u0438\u043B\u0438 WebP',
+    el: '\u03A0\u03B1\u03C1\u03B1\u03BA\u03B1\u03BB\u03CE \u03B1\u03BD\u03B5\u03B2\u03AC\u03C3\u03C4\u03B5 JPEG, PNG \u03AE WebP',
   },
 
   // Validation errors

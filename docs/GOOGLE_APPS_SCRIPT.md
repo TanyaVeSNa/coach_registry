@@ -55,6 +55,33 @@ function doPost(e) {
 
     var data = JSON.parse(e.parameter.payload);
 
+    // If the form sent a base64-encoded photo, decode it,
+    // save to Drive, and use the thumbnail URL.
+    var photoUrl = '';
+    if (data.photoBase64) {
+      try {
+        var decoded = Utilities.base64Decode(data.photoBase64);
+        var blob = Utilities.newBlob(
+          decoded,
+          'image/jpeg',
+          data.photoFilename || 'photo.jpg'
+        );
+        var folder = DriveApp.getFolderById(
+          '1wz3ucR9kxek16X0F836Nu7rAcZrMNPFr'
+        );
+        var file = folder.createFile(blob);
+        file.setName(
+          (data.name || 'coach') + '_' + file.getId()
+        );
+        photoUrl =
+          'https://drive.google.com/thumbnail?id=' +
+          file.getId() + '&sz=w400';
+      } catch (photoErr) {
+        // Photo upload failed — continue without photo
+        photoUrl = '';
+      }
+    }
+
     // Column order: A=Status, B=Name, C=Email, D=ICF Level, E=Photo,
     // F=Specializations, G=Languages, H=Format, I=Price Min, J=Price Max,
     // K=Bio 1, L=Bio 1 Language, M=Bio 2, N=Bio 2 Language,
@@ -65,7 +92,7 @@ function doPost(e) {
       data.name || '',
       data.email || '',
       data.icfLevel || '',
-      data.photo || '',
+      photoUrl,
       (data.specializations || []).join(', '),
       (data.languages || []).join(', '),
       data.format || '',
@@ -297,55 +324,47 @@ Pass the web app URL when initializing the widget:
 | `colorByStatus` | Colors a row when Status changes | Runs automatically (onEdit trigger) |
 | `colorAllRows` | Recolors all rows based on Status | Run manually from Apps Script |
 | `addStatusDropdown` | Adds dropdown to Status column | Run manually from Apps Script (once) |
-| `copyPhotoToDrive` | Copies coach photo to chapter's Google Drive | Called automatically from `doPost` |
-| `testCopyPhoto` | Tests `copyPhotoToDrive` with a sample URL | Run manually from Apps Script |
+| `copyPhotoToDrive` | (Deprecated) Copies photo from URL to Drive | No longer called by `doPost` |
+| `testCopyPhoto` | Tests photo upload to Drive | Run manually from Apps Script |
 
 ---
 
-## Photo Storage: `copyPhotoToDrive`
+## Photo Storage: Direct Upload (base64)
 
-When a coach submits a registration with a photo URL, the `doPost` function
-calls `copyPhotoToDrive` to persist the photo in the chapter's Google Drive
-folder. This ensures photos remain available even if the coach deletes the
-original.
-
-### What it does
-
-Copies a coach's photo from any URL to the ICF Cyprus chapter's shared
-Google Drive folder and returns a stable thumbnail URL.
+When a coach submits a registration with a photo file, the browser converts
+the image to base64 and sends it as `photoBase64` + `photoFilename` fields
+in the JSON payload. The `doPost` function decodes the base64 data, saves
+the file to the ICF Cyprus chapter's shared Google Drive folder, and stores
+the resulting thumbnail URL in column E (Photo).
 
 ### How it works
 
-1. **Google Drive links** (containing `drive.google.com`): extracts the
-   file ID and uses `DriveApp.getFileById().makeCopy()` to copy the file
-   into the target folder.
-2. **Direct URLs** (any other `http://` or `https://` link): fetches the
-   image using `UrlFetchApp.fetch()`, creates a new file in the target
-   folder with `folder.createFile(blob)`.
-3. Returns a stable thumbnail URL in the format:
-   `https://drive.google.com/thumbnail?id=FILE_ID&sz=w400`
+1. The registration form converts the selected image file to a base64 string
+   on the client side (max 5 MB, JPEG/PNG/WebP).
+2. The Vercel serverless proxy forwards the JSON payload (including the
+   base64 data) to Google Apps Script.
+3. `doPost` checks for `data.photoBase64`. If present:
+   - Decodes the base64 string using `Utilities.base64Decode()`
+   - Creates a blob with the original filename
+   - Saves to the Drive folder using `folder.createFile(blob)`
+   - Generates a thumbnail URL: `https://drive.google.com/thumbnail?id=FILE_ID&sz=w400`
+4. If photo upload fails, the row is still created with an empty Photo column.
 
 ### Target folder
 
 All photos are stored in a single shared folder:
 - **Folder ID**: `1wz3ucR9kxek16X0F836Nu7rAcZrMNPFr`
 
-### Integration with `doPost`
+### Legacy: `copyPhotoToDrive` (deprecated)
 
-When `doPost` receives a submission with a non-empty `photo` field, it calls
-`copyPhotoToDrive(photoUrl, coachName)`. If the copy succeeds, the returned
-Drive thumbnail URL replaces the original URL in the Submissions sheet row.
-If the copy fails, the original URL is kept as-is.
+The previous approach used a photo URL field and `copyPhotoToDrive` to fetch
+and copy the image. This function is no longer called by `doPost` but may
+remain in existing deployments. It can be safely removed.
 
 ### `testCopyPhoto`
 
-A helper function for manual testing. Calls `copyPhotoToDrive` with a sample
-URL and logs the result. Use it to verify that the Drive folder permissions
-and `UrlFetchApp` access are working correctly.
-
-**How to run**: In Apps Script, select `testCopyPhoto` from the function
-dropdown at the top, then click the Run button (play icon). Check the
-execution log for the returned thumbnail URL.
+A helper function for manual testing. Can be updated to test the new base64
+flow by encoding a test image and calling the relevant Drive API methods.
 
 ## Approval workflow
 

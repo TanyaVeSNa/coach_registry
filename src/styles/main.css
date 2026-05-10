@@ -1293,6 +1293,101 @@
 }
 
 
+/* --- Photo upload --- */
+
+.icf-form__photo-upload {
+  display: flex;
+  align-items: center;
+  gap: var(--icf-space-7);
+}
+
+.icf-form__photo-input {
+  /* Visually hidden but accessible */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.icf-form__photo-preview {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--icf-avatar-fallback);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icf-form__photo-preview[aria-hidden="true"] {
+  /* Show placeholder circle when no photo */
+  border: 2px dashed var(--icf-border-input);
+  background: var(--icf-surface);
+}
+
+.icf-form__photo-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.icf-form__photo-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--icf-space-2);
+  min-width: 0;
+}
+
+.icf-form__photo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--icf-space-2);
+  background: none;
+  color: var(--icf-accent-text);
+  border: 1px solid var(--icf-border-input);
+  border-radius: var(--icf-radius-btn);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--icf-font);
+  transition: border-color 0.15s ease,
+    background 0.15s ease;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.icf-form__photo-btn:hover {
+  border-color: var(--icf-accent-text);
+  background: rgba(87, 120, 250, 0.05);
+}
+
+.icf-form__photo-btn:focus-visible {
+  outline: 2px solid var(--icf-accent);
+  outline-offset: 2px;
+}
+
+.icf-form__photo-name {
+  font-size: 12px;
+  color: var(--icf-text-muted);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+
 /* --- Help text --- */
 
 .icf-form__help {
