@@ -1,8 +1,14 @@
 # Product Vision: ICF Cyprus Coach Registry
 
+**Live**: https://coaches.icf-cyprus.com/
+
 ## Mission
 
 We create a central entry point where clients in Cyprus find the right certified coach in minutes, not hours.
+
+## Product Direction
+
+The registry started as a tool for ICF Cyprus Chapter. A coaching school has requested their own instance, which validates the product as a **reusable white-label platform** for coaching organizations. The next evolution is making the registry configurable: any org can deploy their own branded coach directory with their own data, logo, and domain.
 
 ## Problem
 

@@ -6,52 +6,65 @@
 
 ---
 
-## Future Goals
+## Future Goals (by priority)
 
-### G-016: Custom Domain — Done (moved to Achieved)
+### G-024: Update WordPress Links
+**Status**: Planned
+**Priority**: 🔴 High — next
+**Description**: Update links on the ICF Cyprus WordPress page (`icf-chapters.org/icf-cyprus/find-a-coach/`) to point to the new custom domain `coaches.icf-cyprus.com` instead of old Vercel/GitHub Pages URLs. Also update registration page link.
+**Action**: Ask WP admin to update the links, or provide exact URLs to replace.
+
+### G-023: Photo Upload Rework
+**Status**: Planned
+**Priority**: 🔴 High
+**Description**: Replace the current photo flow (coach pastes Google Drive URL → Apps Script copies file) with direct file upload through the registration form. Current flow is confusing for coaches. Consider: upload via Vercel Serverless Function to Google Drive, or upload via Apps Script with base64 encoding.
+
+### G-025: White-Label Product (Reusable Registry)
+**Status**: Planned
+**Priority**: 🟡 Medium
+**Description**: Refactor the registry into a configurable white-label product that can be deployed for other coaching schools and organizations. A coaching school requested their own copy. Need to extract ICF Cyprus-specific branding, data sources, and config into a separate layer so the core engine is reusable. Each instance gets its own: branding (logo, colors, fonts), Google Sheet, domain, i18n overrides.
+**Action**: Identify all hardcoded ICF Cyprus references, design a config system, create deployment guide for new instances.
 
 ### G-006: Conference Landing Workflow
 **Status**: Planned
-**Phase**: 1.5
+**Priority**: 🟡 Medium
 **Description**: Workflow for potential clients from conference to access the registry. Details TBD.
-
-### G-005: Embed Widget in WordPress (properly)
-**Status**: Blocked
-**Phase**: 2
-**Description**: Embed the widget directly into the WP page (not via external link). Requires ability to insert `<script>` tags — need to ask WP admin how to do this on the ICF Chapters platform.
-**Depends on**: WP admin guidance on custom scripts
 
 ### G-011: Coach Profile Editing Workflow
 **Status**: Planned
-**Phase**: 2
+**Priority**: 🟡 Medium
 **Description**: Process for coaches to update their profile (new photo, ICF level upgrade, bio changes). Define who does it (coach self-service vs admin) and how. Currently admin edits Google Sheet manually — need a scalable approach as registry grows.
 
 ### G-012: ICF Membership Expiration Tracking
 **Status**: Backlog (needs input from chapter admin)
-**Phase**: 2+
+**Priority**: 🟢 Low
 **Description**: Track when a coach's ICF chapter membership expires and auto-hide or flag them in the registry. Need to understand from the responsible colleague: how membership data is tracked, is there an API/export, what's the renewal cycle.
 **Action**: Ask responsible colleague about membership tracking process before designing solution.
 
 ### G-003: AI Coach Matching Assistant
 **Status**: Deferred
-**Phase**: 2
+**Priority**: 🟢 Low (Phase 2)
 **Description**: AI chatbot widget that helps clients find the right coach through a short conversation.
 
 ### G-004: Analytics & Optimization
 **Status**: Deferred
-**Phase**: 2
+**Priority**: 🟢 Low (Phase 2)
 **Description**: Track page views, filter usage, contact clicks, and AI conversation conversion.
 
 ### G-015: Migrate Infrastructure to ICF Cyprus Account
 **Status**: Backlog
-**Phase**: 2+
+**Priority**: 🟢 Low (Phase 2+)
 **Description**: Move all infrastructure from personal account to official ICF Cyprus account: Google Sheet, Google Drive (photos), Apps Script, Vercel project, GitHub repo. Currently everything runs under the personal account of the board member who set it up.
 **Action**: Coordinate with ICF Cyprus admin to create/transfer ownership.
 
 ### G-017: Unit + Integration Tests
 **Status**: Backlog
-**Phase**: 2+
+**Priority**: 🟢 Low (Phase 2+)
 **Description**: Add test coverage for the widget. Unit tests for pure logic (CSV parsing, filters, i18n, URL validation, HTML escaping). Integration tests for DOM rendering (cards, filters, language switch, form validation). Simple HTML test runner — no npm/Node required.
+
+### ~~G-005: Embed Widget in WordPress~~
+**Status**: Cancelled
+**Reason**: WP platform strips `<script>` tags. Custom domain `coaches.icf-cyprus.com` solves the problem — no need to embed. WP page links to the registry externally.
 
 ---
 

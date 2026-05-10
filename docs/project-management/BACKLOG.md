@@ -61,11 +61,31 @@
 
 ---
 
-## G-023: Переработать загрузку фото коучей
+## G-024: Update WordPress Links
 
-### F-018: Новый flow загрузки фото
+### F-019: Replace old URLs on WP page
+**Priority**: High
+**Description**: Update links on ICF Cyprus WordPress page to point to `coaches.icf-cyprus.com` (catalog) and `coaches.icf-cyprus.com/src/register.html` (registration). Remove any references to old Vercel/GitHub Pages URLs.
+
+---
+
+## G-023: Photo Upload Rework
+
+### F-018: Direct file upload in registration form
+**Priority**: High
+**Description**: Replace URL-based photo flow with direct file upload. Coach selects a file from their device, it gets uploaded to Google Drive via Vercel Serverless Function or Apps Script. No need to understand Google Drive sharing or URL formats.
+
+---
+
+## G-025: White-Label Product
+
+### F-020: Config-driven branding
 **Priority**: Medium
-**Description**: Текущий концепт неудобный — коуч вставляет URL на фото из Google Drive, затем Apps Script копирует файл. Нужно переработать: рассмотреть прямую загрузку файла через форму (upload to Google Drive via Apps Script или Vercel Serverless Function), чтобы коучу не нужно было разбираться с ссылками.
+**Description**: Extract all ICF Cyprus-specific values (logo, colors, fonts, title, i18n overrides) into a config object passed to `ICFRegistry.init()`. Core engine becomes brand-agnostic.
+
+### F-021: Multi-instance deployment guide
+**Priority**: Medium
+**Description**: Documentation for deploying a new registry instance: fork repo, create Google Sheet, configure branding, deploy to Vercel with custom domain. Step-by-step for non-developers.
 
 ---
 

@@ -111,3 +111,15 @@
 **Rationale**: ICF Cyprus already owns `icf-cyprus.com`. Using a subdomain is free, branded, and professional. No need to register and pay for a separate domain.
 **DNS**: CNAME record `coaches` → `cname.vercel-dns.com` (Vercel recommends updating to `8f3b787b3b52597a.vercel-dns-017.com`).
 **Trade-offs**: Depends on the parent domain owner for DNS changes. Old Vercel URLs continue to work as aliases.
+
+### D-015: Cancel WordPress embedding (G-005)
+**Date**: 2026-05-10
+**Decision**: Cancel the goal of embedding the widget directly into WordPress. Use external link to `coaches.icf-cyprus.com` instead.
+**Rationale**: ICF Chapters WordPress platform strips `<script>` tags, making direct embedding impossible without platform-level changes. Custom domain provides a professional branded URL that works well as an external link. No user has complained about the external link approach.
+**Trade-offs**: None significant — the external link works well.
+
+### D-016: White-label product direction
+**Date**: 2026-05-10
+**Decision**: Refactor the registry into a configurable white-label product that other coaching organizations can deploy.
+**Rationale**: A coaching school requested their own copy of the registry. This validates the product beyond ICF Cyprus. Making the branding configurable (logo, colors, fonts, title, data source) allows reuse without forking.
+**Trade-offs**: Requires refactoring hardcoded ICF Cyprus references into config. Increases complexity of the codebase but enables growth.
