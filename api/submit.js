@@ -22,7 +22,7 @@ export const config = {
 };
 
 const APPS_SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbydF_JjV1HaBHhW-TtOpQY5z4K6pg7mZ_qezW5wDKzDsLb-IFweXFQA5tyunHnxTeaU/exec';
+  'https://script.google.com/macros/s/AKfycbz-iaJYXG4oIrth327C0tRxUVQHfHoLx28REhUlc0d2fdRVdpivc2TvwYdb59sGeaLE/exec';
 
 export default async function handler(req, res) {
   // Only accept POST
