@@ -28,6 +28,7 @@ let cachedConfig = null;
  * @property {string} sheetId
  * @property {string} location
  * @property {string} countryCode
+ * @property {string} logoUrl
  * @property {{ primary: string, secondary: string,
  *              accent: string, surface: string }} colors
  * @property {{ heading: string, body: string }} fonts

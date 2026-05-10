@@ -24,6 +24,7 @@
  *  A15: LOCATION        B15: Cyprus
  *  A16: COUNTRY_CODE    B16: +357
  *  A17: SHEET_URL       B17: https://docs.google.com/spreadsheets/d/XXXXX/edit
+ *  A18: LOGO_URL        B18: https://drive.google.com/thumbnail?id=XXXXX&sz=w200
  * ============================================================
  */
 
@@ -83,6 +84,7 @@ function getSettings() {
     LOCATION: 'Cyprus',
     COUNTRY_CODE: '+357',
     SHEET_URL: '',
+    LOGO_URL: '',
   };
 
   var settingsSheet = SpreadsheetApp.getActiveSpreadsheet()
@@ -194,6 +196,7 @@ function handleGetConfig() {
       sheetId: settings.SHEET_ID,
       location: settings.LOCATION,
       countryCode: settings.COUNTRY_CODE,
+      logoUrl: settings.LOGO_URL,
       colors: {
         primary: settings.COLOR_PRIMARY,
         secondary: settings.COLOR_SECONDARY,
@@ -748,6 +751,7 @@ function createSettingsSheet() {
     ['LOCATION', 'Cyprus'],
     ['COUNTRY_CODE', '+357'],
     ['SHEET_URL', ''],
+    ['LOGO_URL', ''],
     ['', ''],
   ]);
   sheet.getRange('A1:B1').setFontWeight('bold');

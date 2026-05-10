@@ -455,6 +455,11 @@ async function init(config = {}) {
     if (remoteConfig.sheetId && !config.sheetId) {
       appConfig.sheetId = remoteConfig.sheetId;
     }
+
+    // Use logoUrl from remote if not provided locally
+    if (remoteConfig.logoUrl && !config.logoUrl) {
+      appConfig.logoUrl = remoteConfig.logoUrl;
+    }
   }
 
   // Initialize language
