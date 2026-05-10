@@ -1747,3 +1747,106 @@
     padding: var(--icf-space-8);
   }
 }
+
+
+/* ============================================================
+   Edit Profile — Specific Styles
+   ============================================================ */
+
+.icf-edit__email-form {
+  max-width: 480px;
+  margin: var(--icf-space-12) auto;
+  padding: var(--icf-space-12) var(--icf-space-9);
+  background: var(--icf-surface);
+  border: 1px solid var(--icf-border);
+  border-radius: var(--icf-radius-card);
+}
+
+.icf-edit__link-sent {
+  max-width: 480px;
+  margin: var(--icf-space-12) auto;
+  padding: var(--icf-space-12) var(--icf-space-9);
+  background: var(--icf-surface);
+  border: 1px solid var(--icf-border);
+  border-radius: var(--icf-radius-card);
+  text-align: center;
+}
+
+.icf-edit__link-sent p {
+  margin: 0 0 var(--icf-space-7);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--icf-text-secondary);
+}
+
+.icf-edit__success {
+  max-width: 480px;
+  margin: var(--icf-space-12) auto;
+  padding: var(--icf-space-12) var(--icf-space-9);
+  background: var(--icf-success-bg);
+  border: 1px solid var(--icf-border);
+  border-radius: var(--icf-radius-card);
+  text-align: center;
+}
+
+.icf-edit__success p {
+  margin: 0 0 var(--icf-space-9);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--icf-success);
+}
+
+.icf-edit__success .icf-form__submit {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.icf-edit__current-photo {
+  display: flex;
+  align-items: center;
+  gap: var(--icf-space-5);
+  margin-bottom: var(--icf-space-5);
+  padding: var(--icf-space-3);
+  background: var(--icf-tag-bg);
+  border-radius: var(--icf-radius-btn);
+}
+
+.icf-edit__current-photo .icf-form__photo-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.icf-edit__current-photo .icf-form__help {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* Readonly input styling */
+.icf-form__input[readonly] {
+  background: var(--icf-tag-bg);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Secondary submit button (request new link) */
+.icf-form__submit--secondary {
+  background: var(--icf-surface);
+  color: var(--icf-text-primary);
+  border: 1px solid var(--icf-border);
+}
+
+.icf-form__submit--secondary:hover {
+  background: var(--icf-tag-bg);
+}
+
+@media (max-width: 639px) {
+  .icf-edit__email-form,
+  .icf-edit__link-sent,
+  .icf-edit__success {
+    margin: var(--icf-space-8) var(--icf-space-3);
+    padding: var(--icf-space-8) var(--icf-space-7);
+  }
+}

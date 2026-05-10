@@ -12,9 +12,14 @@
 
 ### G-023: Photo Upload Rework — Done (moved to Achieved)
 
-### G-025: White-Label Product (Reusable Registry)
+### G-011: Coach Profile Editing
 **Status**: Planned
 **Priority**: 🔴 High — next
+**Description**: Allow coaches to edit their existing profile (photo, bio, specializations, contacts, ICF level). Need to define: how coach authenticates (email link? code?), what they can edit, and how changes are saved to Google Sheet.
+
+### G-025: White-Label Product (Reusable Registry)
+**Status**: Planned
+**Priority**: 🔴 High
 **Description**: Refactor the registry into a configurable white-label product that can be deployed for other coaching schools and organizations. A coaching school requested their own copy. Need to extract ICF Cyprus-specific branding, data sources, and config into a separate layer so the core engine is reusable. Each instance gets its own: branding (logo, colors, fonts), Google Sheet, domain, i18n overrides.
 **Action**: Identify all hardcoded ICF Cyprus references, design a config system, create deployment guide for new instances.
 
@@ -23,10 +28,6 @@
 **Priority**: 🟡 Medium
 **Description**: Workflow for potential clients from conference to access the registry. Details TBD.
 
-### G-011: Coach Profile Editing Workflow
-**Status**: Planned
-**Priority**: 🟡 Medium
-**Description**: Process for coaches to update their profile (new photo, ICF level upgrade, bio changes). Define who does it (coach self-service vs admin) and how. Currently admin edits Google Sheet manually — need a scalable approach as registry grows.
 
 ### G-012: ICF Membership Expiration Tracking
 **Status**: Backlog (needs input from chapter admin)

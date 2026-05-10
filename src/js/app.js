@@ -34,6 +34,7 @@ import { renderCards } from './cards.js';
 import { renderFilters } from './filters.js';
 import { renderRegistrationForm } from './registration.js';
 import { submitRegistration } from './submit.js';
+import { renderEditView } from './edit.js';
 
 /**
  * @typedef {Object} RegistryConfig
@@ -41,7 +42,7 @@ import { submitRegistration } from './submit.js';
  * @property {string} [containerId] -- custom container ID
  * @property {string} [scriptUrl] -- Google Apps Script web app URL
  * @property {boolean} [devMode] -- force dev mode for submissions
- * @property {string} [view] -- initial view: 'catalog' (default) or 'registration'
+ * @property {string} [view] -- initial view: 'catalog' (default), 'registration', or 'edit'
  * @property {string} [registerUrl] -- URL to registration page (if separate page)
  * @property {string} [catalogUrl] -- URL to catalog page (for back link from registration)
  * @property {string} [logoUrl] -- path to ICF Cyprus logo image (relative to HTML file)
@@ -58,8 +59,8 @@ let containerEl = null;
 let appConfig = {};
 
 /**
- * Current view: 'catalog' or 'registration'.
- * @type {'catalog'|'registration'}
+ * Current view: 'catalog', 'registration', or 'edit'.
+ * @type {'catalog'|'registration'|'edit'}
  */
 let currentView = 'catalog';
 
@@ -302,6 +303,30 @@ function renderRegistration() {
 }
 
 /**
+ * Full render of the edit view.
+ */
+function renderEdit() {
+  if (!containerEl) return;
+
+  containerEl.innerHTML = `
+    ${renderHeader('editPageTitle', 'editPageTitleHighlight')}
+    ${renderBackButton()}
+    <div id="icf-edit-container"></div>
+  `;
+
+  bindLanguageSwitch();
+  bindViewActions();
+
+  const editContainer = containerEl.querySelector(
+    '#icf-edit-container'
+  );
+
+  if (editContainer) {
+    renderEditView(editContainer, appConfig);
+  }
+}
+
+/**
  * Handle form submission by delegating to the submit module.
  * @param {Record<string, unknown>} formData
  * @returns {Promise<void>}
@@ -327,6 +352,8 @@ function showView(view) {
 
   if (view === 'registration') {
     renderRegistration();
+  } else if (view === 'edit') {
+    renderEdit();
   } else {
     renderCatalog('ready');
   }
@@ -418,6 +445,9 @@ async function init(config = {}) {
   if (startView === 'registration') {
     // Registration-only page — no need to fetch coaches
     showView('registration');
+  } else if (startView === 'edit') {
+    // Edit page — no need to fetch coaches
+    showView('edit');
   } else {
     // Catalog view — fetch coaches first
     renderCatalog('loading');
