@@ -12,10 +12,7 @@
 
 ### G-023: Photo Upload Rework — Done (moved to Achieved)
 
-### G-011: Coach Profile Editing
-**Status**: Planned
-**Priority**: 🔴 High — next
-**Description**: Allow coaches to edit their existing profile (photo, bio, specializations, contacts, ICF level). Need to define: how coach authenticates (email link? code?), what they can edit, and how changes are saved to Google Sheet.
+### G-011: Coach Profile Editing — Done (moved to Achieved)
 
 ### G-025: White-Label Product (Reusable Registry)
 **Status**: Planned
@@ -63,6 +60,33 @@
 ---
 
 ## Achieved Goals
+
+### G-011: Coach Profile Editing
+**Status**: Achieved
+**Phase**: 2
+**Completed**: 2026-05-10
+
+Coaches can edit their existing profile via email magic link. Coach enters email on the edit page, receives a one-time link (UUID token, 24h expiry), clicks it to open a pre-filled form with all their data. Changes are saved directly to Google Sheet.
+
+**Auth**: Magic link via email — no passwords or accounts needed. Rate limited to 1 email per 5 minutes. Token is single-use and expires in 24h. Only approved coaches can request a link.
+
+**Architecture**: Frontend (`src/js/edit.js`, `src/edit.html`) → Vercel proxies (`api/request-edit-link.js`, `api/verify-token.js`, `api/save-profile.js`) → Apps Script (`handleRequestEditLink`, `handleVerifyToken`, `handleSaveProfile`) → Google Sheet (`EditTokens` tab for tokens, `Submissions` tab for data).
+
+**Settings sheet**: Apps Script now reads configuration (sender name, admin email, site URL, Drive folder ID, registry name) from a `Settings` sheet in Google Sheets instead of hardcoded values. Enables white-label reuse.
+
+**Changes**:
+- `src/js/edit.js` — edit profile module (3 states: email entry, link sent, edit form)
+- `src/edit.html` — edit page
+- `src/js/app.js` — added 'edit' view
+- `src/js/i18n.js` — 17 new edit-related keys (EN/RU/EL)
+- `src/styles/main.css` — edit page styles
+- `api/request-edit-link.js` — Vercel proxy for requesting magic link
+- `api/verify-token.js` — Vercel proxy for token verification
+- `api/save-profile.js` — Vercel proxy for saving profile (10MB limit)
+- `docs/APPS_SCRIPT_FULL_CODE.js` — complete Apps Script with Settings sheet support
+- Apps Script: action dispatcher in `doPost`, 4 handlers, `getSettings()`, `createSettingsSheet()`
+
+---
 
 ### G-024: Update WordPress Links
 **Status**: Achieved

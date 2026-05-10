@@ -5,8 +5,63 @@
  * ИНСТРУКЦИЯ: Скопируйте ВЕСЬ этот файл и вставьте в Apps Script.
  * Удалите ВСЁ старое содержимое перед вставкой.
  * После вставки: Deploy → Manage deployments → ✏️ → New version → Deploy
+ *
+ * НАСТРОЙКИ: Создайте лист "Settings" в Google Sheet:
+ *   A1: Key           B1: Value
+ *   A2: SENDER_NAME   B2: ICF Cyprus
+ *   A3: ADMIN_EMAIL   B3: admin@example.com
+ *   A4: SITE_URL      B4: https://coaches.icf-cyprus.com
+ *   A5: EDIT_PAGE     B5: /src/edit.html
+ *   A6: DRIVE_FOLDER  B6: 1wz3ucR9kxek16X0F836Nu7rAcZrMNPFr
+ *   A7: REGISTRY_NAME B7: ICF Cyprus Coach Registry
  * ============================================================
  */
+
+// ==================== SETTINGS ====================
+
+/**
+ * Read settings from the "Settings" sheet.
+ * Returns an object with key-value pairs.
+ * Falls back to defaults if sheet or key is missing.
+ */
+function getSettings() {
+  var defaults = {
+    SENDER_NAME: 'ICF Cyprus',
+    ADMIN_EMAIL: '',
+    SITE_URL: 'https://coaches.icf-cyprus.com',
+    EDIT_PAGE: '/src/edit.html',
+    DRIVE_FOLDER: '1wz3ucR9kxek16X0F836Nu7rAcZrMNPFr',
+    REGISTRY_NAME: 'ICF Cyprus Coach Registry',
+  };
+
+  var settingsSheet = SpreadsheetApp.getActiveSpreadsheet()
+    .getSheetByName('Settings');
+
+  if (!settingsSheet) return defaults;
+
+  var data = settingsSheet.getDataRange().getValues();
+  var settings = {};
+  for (var key in defaults) {
+    settings[key] = defaults[key];
+  }
+  for (var i = 1; i < data.length; i++) {
+    var k = (data[i][0] || '').toString().trim();
+    var v = (data[i][1] || '').toString().trim();
+    if (k && v) {
+      settings[k] = v;
+    }
+  }
+
+  // Fallback: check Script Properties for ADMIN_EMAIL
+  if (!settings.ADMIN_EMAIL) {
+    var prop = PropertiesService
+      .getScriptProperties()
+      .getProperty('ADMIN_EMAIL');
+    if (prop) settings.ADMIN_EMAIL = prop;
+  }
+
+  return settings;
+}
 
 // ==================== MAIN DISPATCHER ====================
 
@@ -53,6 +108,7 @@ function jsonResponse(obj) {
  * Handle new coach registration.
  */
 function handleRegister(data) {
+  var settings = getSettings();
   var sheet = SpreadsheetApp.getActiveSpreadsheet()
     .getSheetByName('Submissions');
 
@@ -75,7 +131,7 @@ function handleRegister(data) {
         data.photoFilename || 'photo.jpg'
       );
       var folder = DriveApp.getFolderById(
-        '1wz3ucR9kxek16X0F836Nu7rAcZrMNPFr'
+        settings.DRIVE_FOLDER
       );
       var file = folder.createFile(blob);
       file.setName(
@@ -125,13 +181,10 @@ function handleRegister(data) {
     .build();
   statusCell.setDataValidation(rule);
 
-  var adminEmail = PropertiesService
-    .getScriptProperties()
-    .getProperty('ADMIN_EMAIL');
-
-  if (adminEmail) {
+  if (settings.ADMIN_EMAIL) {
     MailApp.sendEmail({
-      to: adminEmail,
+      to: settings.ADMIN_EMAIL,
+      name: settings.SENDER_NAME,
       subject: 'New coach registration: '
         + (data.name || 'Unknown'),
       body: 'A new coach has submitted a registration:\n\n'
@@ -140,7 +193,8 @@ function handleRegister(data) {
         + 'ICF Level: ' + (data.icfLevel || '') + '\n'
         + 'Specializations: '
         + (data.specializations || []).join(', ') + '\n\n'
-        + 'Review in the "Submissions" tab.',
+        + 'Review in the "Submissions" tab.\n'
+        + settings.REGISTRY_NAME,
     });
   }
 
@@ -156,6 +210,7 @@ function handleRegister(data) {
  * Always returns success to prevent email enumeration.
  */
 function handleRequestEditLink(data) {
+  var settings = getSettings();
   var email = (data.email || '').trim().toLowerCase();
   if (!email) return jsonResponse({ success: true });
 
@@ -221,22 +276,23 @@ function handleRequestEditLink(data) {
   ]);
 
   // Send email
-  var editUrl =
-    'https://coaches.icf-cyprus.com/src/edit.html?token='
-    + token;
+  var editUrl = settings.SITE_URL
+    + settings.EDIT_PAGE + '?token=' + token;
   MailApp.sendEmail({
     to: email,
-    subject: 'Edit your coach profile — ICF Cyprus',
+    name: settings.SENDER_NAME,
+    subject: 'Edit your coach profile — '
+      + settings.SENDER_NAME,
     body: 'Hello,\n\n'
       + 'You requested to edit your coach profile '
-      + 'in the ICF Cyprus Registry.\n\n'
+      + 'in the ' + settings.REGISTRY_NAME + '.\n\n'
       + 'Click this link to edit your profile:\n'
       + editUrl + '\n\n'
       + 'This link is valid for 24 hours.\n\n'
       + 'If you did not request this, '
       + 'please ignore this email.\n\n'
-      + 'ICF Cyprus Coach Registry\n'
-      + 'https://coaches.icf-cyprus.com',
+      + settings.REGISTRY_NAME + '\n'
+      + settings.SITE_URL,
   });
 
   return jsonResponse({ success: true });
@@ -349,6 +405,7 @@ function handleVerifyToken(data) {
  * Submissions row, marks token as used.
  */
 function handleSaveProfile(data) {
+  var settings = getSettings();
   var token = (data.token || '').trim();
   if (!token) {
     return jsonResponse({
@@ -439,7 +496,7 @@ function handleSaveProfile(data) {
         data.photoFilename || 'photo.jpg'
       );
       var folder = DriveApp.getFolderById(
-        '1wz3ucR9kxek16X0F836Nu7rAcZrMNPFr'
+        settings.DRIVE_FOLDER
       );
       var file = folder.createFile(blob);
       file.setName(
@@ -555,4 +612,28 @@ function addStatusDropdown() {
     .requireValueInList(['pending', 'approved', 'rejected'], true)
     .build();
   range.setDataValidation(rule);
+}
+
+/**
+ * Creates the Settings sheet with default values.
+ * Run once during initial setup.
+ */
+function createSettingsSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var existing = ss.getSheetByName('Settings');
+  if (existing) return;
+
+  var sheet = ss.insertSheet('Settings');
+  sheet.getRange('A1:B1').setValues([['Key', 'Value']]);
+  sheet.getRange('A2:B8').setValues([
+    ['SENDER_NAME', 'ICF Cyprus'],
+    ['ADMIN_EMAIL', ''],
+    ['SITE_URL', 'https://coaches.icf-cyprus.com'],
+    ['EDIT_PAGE', '/src/edit.html'],
+    ['DRIVE_FOLDER', '1wz3ucR9kxek16X0F836Nu7rAcZrMNPFr'],
+    ['REGISTRY_NAME', 'ICF Cyprus Coach Registry'],
+    ['', ''],
+  ]);
+  sheet.getRange('A1:B1').setFontWeight('bold');
+  sheet.autoResizeColumns(1, 2);
 }

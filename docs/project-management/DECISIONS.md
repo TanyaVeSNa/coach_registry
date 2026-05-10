@@ -130,3 +130,17 @@
 **Rationale**: Previous flow required coaches to upload photo to Google Drive, get a sharing URL, and paste it — too complex for non-technical users. Direct upload is one click.
 **Technical details**: Vercel proxy sends JSON body (Content-Type: text/plain) instead of URLSearchParams — URLSearchParams truncated large base64 payloads. Apps Script reads `e.postData.contents`. Max file size: 5 MB (validated client-side). Accepted: JPEG, PNG, WebP.
 **Trade-offs**: Larger payload (~7 MB for 5 MB photo). Vercel body limit increased to 10 MB.
+
+### D-018: Magic link authentication for profile editing
+**Date**: 2026-05-10
+**Decision**: Use email magic link (UUID token) for coach profile editing instead of passwords or OAuth.
+**Rationale**: Coaches are non-technical users. Magic link requires no account creation, no password management. Coach enters their email, receives a one-time link, clicks it to edit. Simple and secure.
+**Security**: UUID v4 tokens (122 bits of entropy), 24h expiry, single-use, rate limited (1 per 5 min per email). Only approved coaches can request links. API always returns success to prevent email enumeration.
+**Trade-offs**: Requires access to email. Token can only be used once — coach must request a new link for each edit session.
+
+### D-019: Settings sheet for Apps Script configuration
+**Date**: 2026-05-10
+**Decision**: Move hardcoded configuration values from Apps Script code into a "Settings" sheet in Google Sheets (key-value pairs).
+**Rationale**: Prepares for white-label product (G-025). Non-developers can change sender name, admin email, site URL, Drive folder ID, and registry name without editing code. Falls back to defaults if Settings sheet is missing.
+**Settings**: SENDER_NAME, ADMIN_EMAIL, SITE_URL, EDIT_PAGE, DRIVE_FOLDER, REGISTRY_NAME.
+**Trade-offs**: Extra Sheet read on every request. Negligible performance impact (~50 coaches, low traffic).
