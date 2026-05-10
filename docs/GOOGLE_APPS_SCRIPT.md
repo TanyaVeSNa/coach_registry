@@ -40,14 +40,33 @@ Add these column headers in the first row:
 Run the function `createSettingsSheet` from the function dropdown (▶️ Run).
 This creates a "Settings" sheet with default values:
 
+**Backend settings:**
+
 | Key | Value | Description |
 |-----|-------|-------------|
 | SENDER_NAME | ICF Cyprus | Display name for outgoing emails |
 | ADMIN_EMAIL | _(fill in)_ | Email for admin notifications |
 | SITE_URL | https://coaches.icf-cyprus.com | Base URL of the registry |
 | EDIT_PAGE | /src/edit.html | Path to the edit page |
-| DRIVE_FOLDER | 1wz3ucR9kxek16X0F836Nu7rAcZrMNPFr | Google Drive folder ID for photos |
+| DRIVE_FOLDER | https://drive.google.com/drive/folders/... | Google Drive folder for photos (full URL) |
 | REGISTRY_NAME | ICF Cyprus Coach Registry | Full name shown in emails |
+
+**Frontend settings (loaded by website on page load):**
+
+| Key | Value | Description |
+|-----|-------|-------------|
+| BRAND_NAME | ICF Cyprus | Brand name shown in headers and text |
+| COLOR_PRIMARY | #212251 | Main text/background color |
+| COLOR_SECONDARY | #2b379b | Secondary/accent color |
+| COLOR_ACCENT | #efcb30 | CTA buttons, highlights |
+| COLOR_SURFACE | #f8f0e4 | Light background surfaces |
+| FONT_HEADING | Nunito | Google Font for headings |
+| FONT_BODY | Plus Jakarta Sans | Google Font for body text |
+| LOCATION | Cyprus | Location for "Offline (Cyprus)" label |
+| COUNTRY_CODE | +357 | Default country code for WhatsApp |
+| SHEET_URL | https://docs.google.com/spreadsheets/d/.../edit | Google Sheet with coach data (full URL) |
+
+DRIVE_FOLDER and SHEET_URL accept full Google URLs — just paste the link from your browser. The script auto-extracts the ID.
 
 For white-label deployments: change these values for each instance.
 
@@ -80,17 +99,22 @@ The web app URL must match in all Vercel API files:
 - `api/request-edit-link.js`
 - `api/verify-token.js`
 - `api/save-profile.js`
+- `api/config.js`
 
 ## Functions Reference
 
 | Function | Purpose | Trigger |
 |----------|---------|---------|
-| `doPost` | Main dispatcher — routes by `action` field | Web app (automatic) |
+| `doPost` | Main dispatcher — routes by `action` field | Web app POST (automatic) |
+| `doGet` | GET dispatcher — serves frontend config | Web app GET (automatic) |
 | `getSettings` | Reads config from Settings sheet | Called by other functions |
+| `handleGetConfig` | Returns public config for frontend | `action: 'getConfig'` (GET or POST) |
 | `handleRegister` | New coach registration | `action: 'register'` (default) |
 | `handleRequestEditLink` | Generate magic link, send email | `action: 'requestEditLink'` |
 | `handleVerifyToken` | Verify token, return profile | `action: 'verifyToken'` |
 | `handleSaveProfile` | Update coach row in sheet | `action: 'saveProfile'` |
+| `parseDriveFolderId` | Extract Drive folder ID from URL | Called by getSettings |
+| `parseSheetId` | Extract Sheet ID from URL | Called by getSettings |
 | `colorByStatus` | Color row on Status change | onEdit trigger |
 | `colorAllRows` | Recolor all rows | Manual |
 | `addStatusDropdown` | Add dropdown to Status cells | Manual (once) |
@@ -120,8 +144,14 @@ Auto-created on first edit link request.
 Rate limit: 1 token per email per 5 minutes.
 
 ### Settings
-Configuration key-value pairs. Read by `getSettings()` on every request.
+Configuration key-value pairs (16 keys). Read by `getSettings()` on every request.
 Falls back to defaults if sheet or key is missing.
+
+Backend keys (used by Apps Script internally): SENDER_NAME, ADMIN_EMAIL, SITE_URL, EDIT_PAGE, DRIVE_FOLDER, REGISTRY_NAME.
+
+Frontend keys (served to the website via `/api/config`): BRAND_NAME, COLOR_PRIMARY, COLOR_SECONDARY, COLOR_ACCENT, COLOR_SURFACE, FONT_HEADING, FONT_BODY, LOCATION, COUNTRY_CODE, SHEET_URL.
+
+Sensitive keys (ADMIN_EMAIL, DRIVE_FOLDER) are NOT exposed to the frontend.
 
 ## How It Works
 

@@ -144,3 +144,12 @@
 **Rationale**: Prepares for white-label product (G-025). Non-developers can change sender name, admin email, site URL, Drive folder ID, and registry name without editing code. Falls back to defaults if Settings sheet is missing.
 **Settings**: SENDER_NAME, ADMIN_EMAIL, SITE_URL, EDIT_PAGE, DRIVE_FOLDER, REGISTRY_NAME.
 **Trade-offs**: Extra Sheet read on every request. Negligible performance impact (~50 coaches, low traffic).
+
+### D-020: All config in Google Sheet (frontend + backend)
+**Date**: 2026-05-10
+**Decision**: Store all configuration (including frontend: colors, fonts, brand name, location) in the Google Sheet Settings tab. Frontend loads config via `/api/config` endpoint on page load.
+**Rationale**: Single source of truth for non-developers. Changing brand colors or name requires only editing a cell in Google Sheet — no code changes, no redeployment. Enables white-label by swapping Settings values.
+**Settings added**: BRAND_NAME, COLOR_PRIMARY, COLOR_SECONDARY, COLOR_ACCENT, COLOR_SURFACE, FONT_HEADING, FONT_BODY, LOCATION, COUNTRY_CODE, SHEET_URL.
+**Architecture**: Settings sheet → Apps Script `getConfig` action (doGet) → Vercel `/api/config` (5-min cache) → Frontend `config.js` (localStorage + memory cache) → CSS custom properties + i18n overrides.
+**Full URLs**: DRIVE_FOLDER and SHEET_URL accept full Google URLs (auto-parsed to IDs). Users paste links from browser instead of extracting IDs.
+**Trade-offs**: Extra API call on page load (~0.5s first load, cached after). Acceptable for the simplicity of single-place config management.

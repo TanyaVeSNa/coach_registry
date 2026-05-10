@@ -15,10 +15,23 @@
 ### G-011: Coach Profile Editing — Done (moved to Achieved)
 
 ### G-025: White-Label Product (Reusable Registry)
-**Status**: Planned
+**Status**: In Progress
 **Priority**: 🔴 High
 **Description**: Refactor the registry into a configurable white-label product that can be deployed for other coaching schools and organizations. A coaching school requested their own copy. Need to extract ICF Cyprus-specific branding, data sources, and config into a separate layer so the core engine is reusable. Each instance gets its own: branding (logo, colors, fonts), Google Sheet, domain, i18n overrides.
-**Action**: Identify all hardcoded ICF Cyprus references, design a config system, create deployment guide for new instances.
+
+**Done so far**:
+- [x] Settings sheet in Google Sheets — single source of truth for all config
+- [x] Apps Script reads config from Settings (getSettings, getConfig action)
+- [x] Vercel API endpoint `/api/config` — serves frontend config with 5-min cache
+- [x] Frontend loads config on init, applies CSS variables (colors, fonts)
+- [x] i18n brand override — `setBrandOverrides()` replaces "ICF Cyprus" with configured brand name
+- [x] Full Google URLs accepted for Drive folder and Sheet (auto-parsed to IDs)
+
+**Remaining**:
+- [ ] Logo URL in Settings (currently hardcoded in HTML)
+- [ ] Apps Script URL as Vercel env var (currently hardcoded in api/*.js)
+- [ ] Deployment guide for new instances
+- [ ] Test with a second instance (the coaching school)
 
 ### G-006: Conference Landing Workflow
 **Status**: Planned
