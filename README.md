@@ -1,45 +1,52 @@
-# ICF Cyprus Coach Registry
+# Coach Registry
 
-Interactive directory of certified ICF coaches in Cyprus. Phase 1 MVP is complete and deployed. Replaces the static list on the ICF Cyprus website with a filterable catalog, contact buttons, and (Phase 2) AI-powered coach matching.
+White-label coach directory — deploy your own filterable catalog of coaches with registration, profile editing, and configurable branding. No code changes needed for a new instance.
 
-**Live:** https://coaches.icf-cyprus.com/
+**Live example:** https://coaches.icf-cyprus.com/
 
-## Features (MVP) -- Implemented
+## Features
 
 - Coach profile cards with photo, specialization, ICF level, languages, pricing
 - Client-side filtering (specialization, language, format, ICF level, price)
+- Coach profile modal with full bio
 - Direct contact via WhatsApp, Telegram, Email with pre-filled messages
+- Coach registration form with admin moderation
+- Profile editing via email magic link (no passwords)
+- Direct photo upload to Google Drive
+- Configurable branding (colors, fonts, logo, name) via Google Sheet
 - Trilingual UI: English / Russian / Greek
-- Google Sheets as data backend
-- Coach registration form with Google Apps Script backend
-- Deployed on Vercel
+- Mobile-responsive layout
 
 ## Tech Stack
 
-- Vanilla JavaScript / HTML / CSS
-- Google Sheets API for coach data
-- No build tools required for MVP (single embeddable script)
+- Vanilla JavaScript / HTML / CSS (no build tools)
+- Google Sheets as data backend + configuration
+- Google Apps Script for server logic (forms, emails, photos)
+- Vercel for hosting + serverless API proxy
 
-## Getting Started
+## Deploy Your Own
+
+See **[Deployment Guide](docs/DEPLOYMENT_GUIDE.md)** — fork, set 1 env var, fill a Settings sheet.
+
+## Local Development
 
 ```bash
-# Clone the repo
 git clone https://github.com/slip-pro/icf-coach-registry.git
 cd icf-coach-registry
-
-# Start local dev server
 python3 server.py
 # Open http://localhost:8000
 ```
 
 ## Documentation
 
-- [Product Vision](docs/PRODUCT_VISION.md)
+- [Deployment Guide](docs/DEPLOYMENT_GUIDE.md) — set up a new instance
+- [Admin Guide](docs/ADMIN_GUIDE.md) — moderate coach registrations
+- [Google Apps Script](docs/GOOGLE_APPS_SCRIPT.md) — backend setup
+- [Google Sheets Setup](docs/GOOGLE_SHEETS_SETUP.md) — data structure
 - [Roadmap](docs/ROADMAP.md)
 - [Goals](docs/project-management/GOALS.md)
-- [Feature Backlog](docs/project-management/BACKLOG.md)
 - [Decisions](docs/project-management/DECISIONS.md)
 
 ## License
 
-Private project for ICF Cyprus Chapter.
+Private project. Contact the maintainer for licensing.

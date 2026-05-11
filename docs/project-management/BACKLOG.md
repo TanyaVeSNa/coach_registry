@@ -73,15 +73,16 @@
 
 ---
 
-## G-025: White-Label Product
+## G-011: Coach Profile Editing — Done
 
-### F-020: Config-driven branding
-**Priority**: Medium
-**Description**: Extract all ICF Cyprus-specific values (logo, colors, fonts, title, i18n overrides) into a config object passed to `ICFRegistry.init()`. Core engine becomes brand-agnostic.
+### F-022: Magic link auth + edit form — Done
 
-### F-021: Multi-instance deployment guide
-**Priority**: Medium
-**Description**: Documentation for deploying a new registry instance: fork repo, create Google Sheet, configure branding, deploy to Vercel with custom domain. Step-by-step for non-developers.
+---
+
+## G-025: White-Label Product — Done
+
+### F-020: Config-driven branding — Done
+### F-021: Multi-instance deployment guide — Done
 
 ---
 

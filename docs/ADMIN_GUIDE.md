@@ -84,7 +84,21 @@ If a coach leaves ICF Cyprus or asks to be removed:
 
 ## Photos
 
-Coaches upload photos via a Google Drive link in the registration form. The system automatically converts Google Drive URLs to thumbnail images for the catalog. You do not need to do anything special with photos.
+Coaches upload photos directly during registration (JPEG, PNG, WebP, max 5 MB). Photos are automatically saved to your Google Drive folder and displayed as thumbnails in the catalog. You do not need to do anything special with photos.
+
+## Coach self-editing
+
+Coaches can update their own profiles via a magic link:
+
+1. Coach goes to the **Edit Profile** page
+2. Enters their email address
+3. Receives a one-time link by email (valid for 24 hours)
+4. Clicks the link to open a pre-filled form
+5. Makes changes and saves
+
+The link can only be used once. After saving, the coach must request a new link for further edits. Only approved coaches can request edit links.
+
+Edit tokens are stored in a separate **EditTokens** tab (created automatically).
 
 ## Email notifications
 
@@ -92,10 +106,9 @@ Email notifications are sent automatically when a coach submits a registration.
 To change the admin email:
 
 1. Open the Google Sheet
-2. Go to Extensions > Apps Script
-3. Click the gear icon (Project Settings)
-4. Under Script Properties, find `ADMIN_EMAIL`
-5. Change the value to the new email address
+2. Go to the **Settings** tab
+3. Find the row with Key = `ADMIN_EMAIL`
+4. Change the Value to the new email address
 
 ## FAQ
 
@@ -109,7 +122,7 @@ A: Yes! Just select `approved` from the Status dropdown for each coach you want 
 A: Just change the Status back to `approved`. No data is lost. The row will turn green again.
 
 **Q: Can coaches edit their own profiles?**
-A: Not yet. For now, coaches contact you and you make the changes in the sheet. Self-editing is planned for a future version.
+A: Yes! Coaches go to the Edit Profile page, enter their email, and receive a one-time edit link. The link is valid for 24 hours. You can also edit their data directly in the sheet.
 
 **Q: Why are some rows yellow/green/red?**
 A: The colors show the status at a glance. Yellow = pending review, green = approved (visible on website), red = rejected. The colors update automatically when you change the Status.

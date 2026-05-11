@@ -14,28 +14,7 @@
 
 ### G-011: Coach Profile Editing — Done (moved to Achieved)
 
-### G-025: White-Label Product (Reusable Registry)
-**Status**: In Progress
-**Priority**: 🔴 High
-**Description**: Refactor the registry into a configurable white-label product that can be deployed for other coaching schools and organizations. A coaching school requested their own copy. Need to extract ICF Cyprus-specific branding, data sources, and config into a separate layer so the core engine is reusable. Each instance gets its own: branding (logo, colors, fonts), Google Sheet, domain, i18n overrides.
-
-**Done so far**:
-- [x] Settings sheet in Google Sheets — single source of truth for all config
-- [x] Apps Script reads config from Settings (getSettings, getConfig action)
-- [x] Vercel API endpoint `/api/config` — serves frontend config with 5-min cache
-- [x] Frontend loads config on init, applies CSS variables (colors, fonts)
-- [x] i18n brand override — `setBrandOverrides()` replaces "ICF Cyprus" with configured brand name
-- [x] Full Google URLs accepted for Drive folder and Sheet (auto-parsed to IDs)
-- [x] Logo URL in Settings — remote logo from Google Drive, overrides local config
-- [x] Debug details removed from /api/config error responses
-- [x] Apps Script URL moved to Vercel env var (APPS_SCRIPT_URL)
-- [x] All hardcoded "ICF Cyprus" removed from HTML titles and success page
-- [x] Page titles set dynamically from remote config (registryName)
-- [x] success.html reads brand from config cache
-- [x] Deployment guide for new instances (docs/DEPLOYMENT_GUIDE.md)
-
-**Remaining**:
-- [ ] Test with a second instance (the coaching school)
+### G-025: White-Label Product — Done (moved to Achieved)
 
 ### G-006: Conference Landing Workflow
 **Status**: Planned
@@ -77,6 +56,33 @@
 ---
 
 ## Achieved Goals
+
+### G-025: White-Label Product (Reusable Registry)
+**Status**: Achieved
+**Phase**: 2
+**Completed**: 2026-05-11
+
+Registry is now a reusable white-label product. Any coaching organization can deploy their own instance by forking the repo, setting 1 Vercel env var, and filling a Settings sheet in Google Sheets. No code changes needed.
+
+**Config architecture**: Settings sheet (17 keys) → Apps Script `getConfig` → Vercel `/api/config` (5-min cache) → Frontend CSS variables + i18n overrides.
+
+**What's configurable**: brand name, registry name, logo (Google Drive URL), colors (primary, secondary, accent, surface), fonts (heading, body), location, country code, admin email, sender name, site URL, Drive folder, Sheet URL.
+
+**Changes**:
+- `src/js/config.js` — remote config loader with localStorage + memory cache
+- `src/js/app.js` — loads config on init, applies CSS vars, sets brand overrides, dynamic page titles
+- `src/js/i18n.js` — `setBrandOverrides()` replaces brand name in all UI strings
+- `api/config.js` — Vercel proxy for frontend config (GET → POST to Apps Script)
+- `api/*.js` (all 5) — Apps Script URL from `process.env.APPS_SCRIPT_URL` env var
+- `src/*.html` (all 4) — removed hardcoded "ICF Cyprus", generic titles
+- `src/success.html` — brand name from config cache
+- `docs/APPS_SCRIPT_FULL_CODE.js` — `getSettings()`, `handleGetConfig()`, `createSettingsSheet()`, URL parsers
+- `docs/DEPLOYMENT_GUIDE.md` — step-by-step guide for new instances
+- `docs/GOOGLE_APPS_SCRIPT.md` — updated with Settings sheet docs
+
+**Decisions**: D-019 (Settings sheet), D-020 (all config in Sheet), D-021 (env var)
+
+---
 
 ### G-011: Coach Profile Editing
 **Status**: Achieved

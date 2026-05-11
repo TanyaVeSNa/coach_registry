@@ -153,3 +153,9 @@
 **Architecture**: Settings sheet → Apps Script `getConfig` action (doGet) → Vercel `/api/config` (5-min cache) → Frontend `config.js` (localStorage + memory cache) → CSS custom properties + i18n overrides.
 **Full URLs**: DRIVE_FOLDER and SHEET_URL accept full Google URLs (auto-parsed to IDs). Users paste links from browser instead of extracting IDs.
 **Trade-offs**: Extra API call on page load (~0.5s first load, cached after). Acceptable for the simplicity of single-place config management.
+
+### D-021: Apps Script URL as Vercel environment variable
+**Date**: 2026-05-11
+**Decision**: Move the Google Apps Script deployment URL from hardcoded strings in 5 API files to a single Vercel environment variable (`APPS_SCRIPT_URL`).
+**Rationale**: The URL was duplicated in `api/submit.js`, `api/config.js`, `api/request-edit-link.js`, `api/verify-token.js`, and `api/save-profile.js`. Changing it required editing all files and redeploying. With an env var, new instances only need to set one variable in Vercel dashboard — no code changes.
+**Trade-offs**: Requires Vercel dashboard access to configure. Clear error message returned if env var is not set.
