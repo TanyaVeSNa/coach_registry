@@ -26,9 +26,10 @@
 - [x] Frontend loads config on init, applies CSS variables (colors, fonts)
 - [x] i18n brand override — `setBrandOverrides()` replaces "ICF Cyprus" with configured brand name
 - [x] Full Google URLs accepted for Drive folder and Sheet (auto-parsed to IDs)
+- [x] Logo URL in Settings — remote logo from Google Drive, overrides local config
+- [x] Debug details removed from /api/config error responses
 
 **Remaining**:
-- [ ] Logo URL in Settings (currently hardcoded in HTML)
 - [ ] Apps Script URL as Vercel env var (currently hardcoded in api/*.js)
 - [ ] Deployment guide for new instances
 - [ ] Test with a second instance (the coaching school)

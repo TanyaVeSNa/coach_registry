@@ -17,14 +17,20 @@ export const config = {
   },
 };
 
-const APPS_SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbxONkKXEKO_rfrSxLFKWieIkrV4VrFcSqYRSWBOf0lT_5cPws_RkgC8ot_4xOG0Dluv/exec';
+const APPS_SCRIPT_URL = process.env.APPS_SCRIPT_URL;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({
       success: false,
       error: 'Method not allowed',
+    });
+  }
+
+  if (!APPS_SCRIPT_URL) {
+    return res.status(500).json({
+      success: false,
+      error: 'APPS_SCRIPT_URL environment variable is not set',
     });
   }
 

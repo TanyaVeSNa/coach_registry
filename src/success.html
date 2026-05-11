@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICF Cyprus — Registration Submitted</title>
+  <title>Registration Submitted</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -63,24 +63,35 @@
 <body>
   <div class="success-box">
     <h1 id="title">Your profile has been submitted!</h1>
-    <p id="text">The ICF Cyprus administrator will review your application and you'll receive a confirmation by email.</p>
-    <a id="link" href="../public/embed-example.html">View Coach Registry</a>
+    <p id="text">The administrator will review your application and you'll receive a confirmation by email.</p>
+    <a id="link" href="/">View Coach Registry</a>
   </div>
   <script>
-    // Detect language from localStorage or URL param
     var lang = localStorage.getItem('icf-lang') || 'en';
+    var brand = 'Coach Registry';
+
+    // Load brand name from config cache
+    try {
+      var cached = JSON.parse(
+        localStorage.getItem('icf_config_cache') || '{}'
+      );
+      if (cached.data && cached.data.brandName) {
+        brand = cached.data.brandName;
+      }
+    } catch (_e) { /* ignore */ }
+
     var msgs = {
       en: {
         title: 'Your profile has been submitted!',
-        text: 'The ICF Cyprus administrator will review your application and you\'ll receive a confirmation by email.'
+        text: 'The ' + brand + ' administrator will review your application and you\'ll receive a confirmation by email.'
       },
       ru: {
         title: 'Ваш профиль отправлен!',
-        text: 'Администратор ICF Cyprus рассмотрит заявку, и вы получите подтверждение по email.'
+        text: 'Администратор ' + brand + ' рассмотрит заявку, и вы получите подтверждение по email.'
       },
       el: {
         title: 'Το προφίλ σας υποβλήθηκε!',
-        text: 'Ο διαχειριστής του ICF Cyprus θα εξετάσει την αίτησή σας και θα λάβετε επιβεβαίωση μέσω email.'
+        text: 'Ο διαχειριστής του ' + brand + ' θα εξετάσει την αίτησή σας και θα λάβετε επιβεβαίωση μέσω email.'
       }
     };
     var links = {
@@ -92,6 +103,7 @@
     document.getElementById('title').textContent = m.title;
     document.getElementById('text').textContent = m.text;
     document.getElementById('link').textContent = links[lang] || links.en;
+    document.title = brand + ' — Registration Submitted';
   </script>
 </body>
 </html>
