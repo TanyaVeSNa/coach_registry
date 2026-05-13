@@ -642,9 +642,9 @@ const dictionary = {
     el: 'Online',
   },
   regFormatOffline: {
-    en: 'Offline',
-    ru: '\u041E\u0444\u043B\u0430\u0439\u043D',
-    el: '\u0394\u03B9\u03B1 \u03B6\u03CE\u03C3\u03B7\u03C2',
+    en: 'Offline (Moscow)',
+    ru: '\u041E\u0444\u043B\u0430\u0439\u043D (\u041C\u043E\u0441\u043A\u0432\u0430)',
+    el: 'Offline (Moscow)',
   },
   regFormatBoth: {
     en: 'Both',
