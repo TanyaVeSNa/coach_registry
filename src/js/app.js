@@ -341,7 +341,7 @@ async function handleFormSubmit(formData) {
   });
 
   // Redirect to success page
-  const successUrl = appConfig.successUrl || 'success.html';
+  const successUrl = appConfig.successUrl || '/success';
   window.location.href = successUrl;
 }
 
