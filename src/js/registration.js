@@ -370,8 +370,8 @@ function renderRadioGroup(opts) {
 
 /** Bio language options for dropdowns */
 const BIO_LANG_OPTIONS = [
-  { value: 'en', i18nKey: 'regBioLangEN' },
   { value: 'ru', i18nKey: 'regBioLangRU' },
+  { value: 'en', i18nKey: 'regBioLangEN' },
 ];
 
 /**
