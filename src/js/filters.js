@@ -56,7 +56,7 @@ const FORMAT_OPTIONS = [
 ];
 
 /** Fixed language filter options (only 3 main languages) */
-const LANG_FILTER_OPTIONS = ['English', 'Russian', 'Greek'];
+const LANG_FILTER_OPTIONS = ['English', 'Russian'];
 
 /** Language display names mapped to i18n keys */
 const LANG_I18N_MAP = {
