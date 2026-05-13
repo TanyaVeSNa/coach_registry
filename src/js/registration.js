@@ -1250,13 +1250,29 @@ export function renderRegistrationForm(container, onSubmit) {
       return onSubmit(d);
     }).then(() => {
       // onSubmit handles redirect
-    }).catch(() => {
+    }).catch((err) => {
       submitBtn.disabled = false;
       submitBtn.querySelector('span').textContent =
         t('regSubmit');
       submitBtn.classList.remove(
         'icf-form__submit--loading'
       );
+
+      // Show error message to user
+      let errorContainer = form.querySelector(
+        '.icf-form__submit-error'
+      );
+      if (!errorContainer) {
+        errorContainer = document.createElement('div');
+        errorContainer.className = 'icf-form__submit-error';
+        errorContainer.setAttribute('role', 'alert');
+        submitBtn.parentNode.insertBefore(
+          errorContainer, submitBtn.nextSibling
+        );
+      }
+      errorContainer.textContent = t('regErrorGeneral');
+      errorContainer.style.cssText =
+        'color:#c0392b;margin-top:12px;font-size:14px;';
     });
   });
 }
