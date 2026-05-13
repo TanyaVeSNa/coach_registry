@@ -11,7 +11,7 @@
  */
 
 const STORAGE_KEY = 'icf-lang';
-const SUPPORTED_LANGS = ['en', 'ru', 'el'];
+const SUPPORTED_LANGS = ['en', 'ru'];
 const DEFAULT_LANG = 'en';
 
 /** @type {Record<string, Record<string, string>>} */
@@ -72,9 +72,9 @@ const dictionary = {
     el: 'Online',
   },
   formatOffline: {
-    en: 'Offline (Cyprus)',
-    ru: 'Офлайн (Кипр)',
-    el: 'Δια ζώσης (Κύπρος)',
+    en: 'Offline (Moscow)',
+    ru: 'Офлайн (Москва)',
+    el: 'Δια ζώσης (Μόσχα)',
   },
   formatBoth: {
     en: 'Online + Offline',
