@@ -250,24 +250,24 @@ const dictionary = {
 
   // Price range labels
   priceUnder50: {
-    en: '< \u20ac50',
-    ru: '< \u20ac50',
-    el: '< \u20ac50',
+    en: '< 3000\u20bd',
+    ru: '< 3000\u20bd',
+    el: '< 3000\u20bd',
   },
   price50to100: {
-    en: '\u20ac50\u2013100',
-    ru: '\u20ac50\u2013100',
-    el: '\u20ac50\u2013100',
+    en: '3000\u201310000\u20bd',
+    ru: '3000\u201310000\u20bd',
+    el: '3000\u201310000\u20bd',
   },
   price100to150: {
-    en: '\u20ac100\u2013150',
-    ru: '\u20ac100\u2013150',
-    el: '\u20ac100\u2013150',
+    en: '10000\u201320000\u20bd',
+    ru: '10000\u201320000\u20bd',
+    el: '10000\u201320000\u20bd',
   },
   priceOver150: {
-    en: '\u20ac150+',
-    ru: '\u20ac150+',
-    el: '\u20ac150+',
+    en: '20000\u20bd+',
+    ru: '20000\u20bd+',
+    el: '20000\u20bd+',
   },
 
   // =========================================================
@@ -343,14 +343,14 @@ const dictionary = {
     el: '\u039C\u03BF\u03C1\u03C6\u03AE',
   },
   regLabelPriceMin: {
-    en: 'Price Min (\u20ac)',
-    ru: '\u0426\u0435\u043D\u0430 \u043E\u0442 (\u20ac)',
-    el: '\u0395\u03BB\u03AC\u03C7\u03B9\u03C3\u03C4\u03B7 \u03C4\u03B9\u03BC\u03AE (\u20ac)',
+    en: 'Price Min (\u20bd)',
+    ru: '\u0426\u0435\u043D\u0430 \u043E\u0442 (\u20bd)',
+    el: '\u0395\u03BB\u03AC\u03C7\u03B9\u03C3\u03C4\u03B7 \u03C4\u03B9\u03BC\u03AE (\u20bd)',
   },
   regLabelPriceMax: {
-    en: 'Price Max (\u20ac)',
-    ru: '\u0426\u0435\u043D\u0430 \u0434\u043E (\u20ac)',
-    el: '\u039C\u03AD\u03B3\u03B9\u03C3\u03C4\u03B7 \u03C4\u03B9\u03BC\u03AE (\u20ac)',
+    en: 'Price Max (\u20bd)',
+    ru: '\u0426\u0435\u043D\u0430 \u0434\u043E (\u20bd)',
+    el: '\u039C\u03AD\u03B3\u03B9\u03C3\u03C4\u03B7 \u03C4\u03B9\u03BC\u03AE (\u20bd)',
   },
   regLabelPriceByRequest: {
     en: 'By request',

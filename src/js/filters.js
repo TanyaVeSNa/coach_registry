@@ -40,10 +40,10 @@ let currentOutsideClickHandler = null;
 
 /** @type {PriceRange[]} */
 const PRICE_RANGES = [
-  { key: 'under50', labelKey: 'priceUnder50', min: 0, max: 49 },
-  { key: '50to100', labelKey: 'price50to100', min: 50, max: 100 },
-  { key: '100to150', labelKey: 'price100to150', min: 100, max: 150 },
-  { key: 'over150', labelKey: 'priceOver150', min: 151, max: Infinity },
+  { key: 'under50', labelKey: 'priceUnder50', min: 0, max: 2999 },
+  { key: '50to100', labelKey: 'price50to100', min: 3000, max: 10000 },
+  { key: '100to150', labelKey: 'price100to150', min: 10000, max: 20000 },
+  { key: 'over150', labelKey: 'priceOver150', min: 20001, max: Infinity },
 ];
 
 /** ICF credential levels displayed as filter chips */

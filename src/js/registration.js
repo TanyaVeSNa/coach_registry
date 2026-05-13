@@ -45,13 +45,6 @@ const SPECIALIZATIONS = [
 const LANGUAGES = [
   { value: 'English', i18nKey: 'regLangEnglish' },
   { value: 'Russian', i18nKey: 'regLangRussian' },
-  { value: 'Greek', i18nKey: 'regLangGreek' },
-  { value: 'German', i18nKey: 'regLangGerman' },
-  { value: 'French', i18nKey: 'regLangFrench' },
-  { value: 'Arabic', i18nKey: 'regLangArabic' },
-  { value: 'Hebrew', i18nKey: 'regLangHebrew' },
-  { value: 'Ukrainian', i18nKey: 'regLangUkrainian' },
-  { value: 'Other', i18nKey: 'regLangOther' },
 ];
 
 /** Format options mapped to i18n keys */
@@ -379,7 +372,6 @@ function renderRadioGroup(opts) {
 const BIO_LANG_OPTIONS = [
   { value: 'en', i18nKey: 'regBioLangEN' },
   { value: 'ru', i18nKey: 'regBioLangRU' },
-  { value: 'el', i18nKey: 'regBioLangEL' },
 ];
 
 /**
