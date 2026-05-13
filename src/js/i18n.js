@@ -669,8 +669,8 @@ const dictionary = {
     el: 'MCC (Master Certified Coach)',
   },
   regLevelMember: {
-    en: 'ICF Member (no credential yet)',
-    ru: 'ICF Member (\u0431\u0435\u0437 \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438)',
+    en: 'No ICF certification',
+    ru: '\u041D\u0435\u0442 \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438 \u0432 ICF',
     el: 'ICF Member (\u03C7\u03C9\u03C1\u03AF\u03C2 \u03C0\u03B9\u03C3\u03C4\u03BF\u03C0\u03BF\u03AF\u03B7\u03C3\u03B7)',
   },
 
