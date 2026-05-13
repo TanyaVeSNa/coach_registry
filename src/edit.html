@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="/src/styles/main.css">
 
   <style>
     body {
@@ -25,14 +25,14 @@
   <div id="icf-coach-registry"></div>
 
   <script type="module">
-    import { ICFRegistry } from './js/app.js';
+    import { ICFRegistry } from '/src/js/app.js';
 
     ICFRegistry.init({
       apiUrl: '/api/submit',
       view: 'edit',
       catalogUrl: '/',
-      logoUrl: './assets/icf-logo.png',
-      assetsBase: './assets/',
+      logoUrl: '/src/assets/icf-logo.png',
+      assetsBase: '/src/assets/',
     });
   </script>
 
