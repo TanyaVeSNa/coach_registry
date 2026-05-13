@@ -250,14 +250,14 @@ const dictionary = {
 
   // Price range labels
   priceUnder50: {
-    en: '< 3000\u20bd',
-    ru: '< 3000\u20bd',
-    el: '< 3000\u20bd',
+    en: '< 5000\u20bd',
+    ru: '< 5000\u20bd',
+    el: '< 5000\u20bd',
   },
   price50to100: {
-    en: '3000\u201310000\u20bd',
-    ru: '3000\u201310000\u20bd',
-    el: '3000\u201310000\u20bd',
+    en: '5000\u201310000\u20bd',
+    ru: '5000\u201310000\u20bd',
+    el: '5000\u201310000\u20bd',
   },
   price100to150: {
     en: '10000\u201320000\u20bd',
