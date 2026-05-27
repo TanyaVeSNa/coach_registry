@@ -120,7 +120,12 @@ function renderHeader(titleKey = 'pageTitle', highlightKey = 'pageTitleHighlight
       <div class="icf-hero__nav">
         <a href="https://iccs-course.com"
            class="icf-hero__home-link"
-           data-i18n="navHome">${esc(t('navHome'))}</a>
+           title="${esc(t('navHome'))}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.5" width="24" height="24">
+            <path d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10"/>
+          </svg>
+        </a>
       </div>
       <div class="icf-hero__content">
         <img src="${HERO_LOGO_URL}"
