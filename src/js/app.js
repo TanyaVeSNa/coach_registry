@@ -121,10 +121,6 @@ function renderHeader(titleKey = 'pageTitle', highlightKey = 'pageTitleHighlight
         <a href="https://iccs-course.com"
            class="icf-hero__home-link"
            data-i18n="navHome">${esc(t('navHome'))}</a>
-        <nav class="icf-lang-switch" role="group"
-             aria-label="Language">
-          ${langButtons}
-        </nav>
       </div>
       <div class="icf-hero__content">
         <img src="${HERO_LOGO_URL}"
