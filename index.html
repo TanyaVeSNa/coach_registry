@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find a Coach — ICF Cyprus</title>
+  <title>ICCS рекомендует коучей</title>
+  <link rel="icon" href="https://optim.tildacdn.com/tild6339-3631-4461-b232-323637323339/-/resize/32x/-/format/png/ICCS_.png" type="image/png">
 
+  <!-- Google Fonts: Inter (closest to TildaSans used on iccs-course.com) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
+  <!-- Widget Styles -->
   <link rel="stylesheet" href="./src/styles/main.css">
 
   <style>
@@ -22,14 +25,18 @@
 </head>
 <body>
 
+  <!-- Widget container -->
   <div id="icf-coach-registry"></div>
 
+  <!-- Clear stale config cache -->
+  <script>
+    try { localStorage.removeItem('icf_registry_config'); } catch(e) {}
+  </script>
   <script type="module">
     import { ICFRegistry } from './src/js/app.js';
 
     ICFRegistry.init({
-      sheetId: '16Q1IQFcnJ_lUFCBolPAnO4pyj19cjh0Z0KBdZCtVgSk',
-      logoUrl: './src/assets/icf-logo.png',
+      logoUrl: 'https://optim.tildacdn.com/tild6339-3631-4461-b232-323637323339/-/resize/360x/-/format/webp/ICCS_.png.webp',
       assetsBase: './src/assets/',
     });
   </script>
