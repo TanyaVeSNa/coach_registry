@@ -606,8 +606,8 @@
 }
 
 .icf-card:hover {
-  background: #2b379b;
-  border-color: #2b379b;
+  background: #3d3629;
+  border-color: #3d3629;
   box-shadow: var(--icf-shadow-md);
 }
 
@@ -620,8 +620,8 @@
 }
 
 .icf-card:hover .icf-tag {
-  background: var(--icf-cta);
-  color: var(--icf-text-primary);
+  background: #C5A55A;
+  color: #ffffff;
 }
 
 .icf-card:hover .icf-contact-link {
