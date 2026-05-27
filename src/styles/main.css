@@ -32,11 +32,11 @@
   --icf-avatar-fallback: #e8e0d4;
 
   /* Colors — ICF Badges (ICCS brand gold) */
-  --icf-badge-mcc-bg: #C5A55A;
+  --icf-badge-mcc-bg: #d7bf67;
   --icf-badge-mcc-text: #ffffff;
-  --icf-badge-pcc-bg: #C5A55A;
+  --icf-badge-pcc-bg: #d7bf67;
   --icf-badge-pcc-text: #ffffff;
-  --icf-badge-acc-bg: #C5A55A;
+  --icf-badge-acc-bg: #d7bf67;
   --icf-badge-acc-text: #ffffff;
 
   /* Colors — Contact (brand colors preserved) */
@@ -208,8 +208,8 @@
 
 .icf-hero__nav {
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 12px;
+  right: 12px;
   z-index: 100;
 }
 
@@ -219,7 +219,7 @@
   justify-content: center;
   width: 56px;
   height: 56px;
-  background: #C5A55A;
+  background: #d7bf67;
   color: #ffffff;
   text-decoration: none;
   font-family: var(--icf-font-heading);
@@ -232,7 +232,7 @@
 }
 
 .icf-hero__home-link:hover {
-  background: #B08D3E;
+  background: #c4ad58;
 }
 
 @media (max-width: 768px) {
