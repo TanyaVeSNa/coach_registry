@@ -1,0 +1,4 @@
+/register /src/register.html 200
+/edit /src/edit.html 200
+/success /src/success.html 200
+/ /index.html 200
