@@ -286,31 +286,55 @@ export function renderFilters(coaches, container, onFilterChange) {
   specContainer.appendChild(specPanel);
   wrapper.appendChild(specContainer);
 
-  // 2. Language chips
-  for (const lang of allLanguages) {
-    const chip = buildToggleChip(
-      getLanguageLabel(lang),
-      lang,
-      state.languages,
-      update
-    );
-    wrapper.appendChild(chip);
-  }
+  // 2. Language dropdown
+  const langContainer = document.createElement('div');
+  langContainer.className = 'icf-filter-dropdown';
 
-  // 3. ICF Level chips (on new line)
-  const levelBreak = document.createElement('div');
-  levelBreak.className = 'icf-filters__break';
-  wrapper.appendChild(levelBreak);
+  const langBtn = document.createElement('button');
+  langBtn.className = 'icf-filter-chip';
+  langBtn.setAttribute('aria-expanded', 'false');
+  langBtn.setAttribute('aria-haspopup', 'true');
+  langBtn.innerHTML = `${filterIcon()}
+    <span data-i18n="filterLanguage">${t('filterLanguage')}</span>
+    <span class="icf-filter-chip__count" style="display:none"></span>
+    ${chevronIcon()}`;
 
-  for (const level of ICF_LEVELS) {
-    const chip = buildToggleChip(
-      level,
-      level,
-      state.levels,
-      update
-    );
-    wrapper.appendChild(chip);
-  }
+  const langPanel = buildGenericDropdown(
+    allLanguages,
+    state.languages,
+    langBtn,
+    update,
+    getLanguageLabel
+  );
+
+  langContainer.appendChild(langBtn);
+  langContainer.appendChild(langPanel);
+  wrapper.appendChild(langContainer);
+
+  // 3. ICF Level dropdown
+  const levelContainer = document.createElement('div');
+  levelContainer.className = 'icf-filter-dropdown';
+
+  const levelBtn = document.createElement('button');
+  levelBtn.className = 'icf-filter-chip';
+  levelBtn.setAttribute('aria-expanded', 'false');
+  levelBtn.setAttribute('aria-haspopup', 'true');
+  levelBtn.innerHTML = `${filterIcon()}
+    <span data-i18n="filterLevel">${t('filterLevel')}</span>
+    <span class="icf-filter-chip__count" style="display:none"></span>
+    ${chevronIcon()}`;
+
+  const levelPanel = buildGenericDropdown(
+    ICF_LEVELS,
+    state.levels,
+    levelBtn,
+    update,
+    (v) => v
+  );
+
+  levelContainer.appendChild(levelBtn);
+  levelContainer.appendChild(levelPanel);
+  wrapper.appendChild(levelContainer);
 
   // 5. Price range chips (on new line)
   const priceBreak = document.createElement('div');
@@ -342,6 +366,8 @@ export function renderFilters(coaches, container, onFilterChange) {
     state.priceRanges.clear();
     resetAllChips(wrapper);
     resetSpecDropdown(specPanel, specBtn);
+    resetSpecDropdown(langPanel, langBtn);
+    resetSpecDropdown(levelPanel, levelBtn);
     update();
   });
   wrapper.appendChild(clearBtn);
@@ -356,24 +382,34 @@ export function renderFilters(coaches, container, onFilterChange) {
   resultsCount.style.display = 'none';
   container.appendChild(resultsCount);
 
-  // Close dropdown when clicking outside (remove previous to prevent leaks)
+  // Close dropdowns when clicking outside
+  const allDropdowns = [
+    { container: specContainer, panel: specPanel, btn: specBtn },
+    { container: langContainer, panel: langPanel, btn: langBtn },
+    { container: levelContainer, panel: levelPanel, btn: levelBtn },
+  ];
+
   if (currentOutsideClickHandler) {
     document.removeEventListener('click', currentOutsideClickHandler);
   }
   currentOutsideClickHandler = (e) => {
-    if (!specContainer.contains(/** @type {Node} */ (e.target))) {
-      closeSpecDropdown(specPanel, specBtn);
+    for (const dd of allDropdowns) {
+      if (!dd.container.contains(/** @type {Node} */ (e.target))) {
+        closeSpecDropdown(dd.panel, dd.btn);
+      }
     }
   };
   document.addEventListener('click', currentOutsideClickHandler);
 
-  // Close dropdown on Escape
-  specContainer.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeSpecDropdown(specPanel, specBtn);
-      specBtn.focus();
-    }
-  });
+  // Close dropdowns on Escape
+  for (const dd of allDropdowns) {
+    dd.container.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeSpecDropdown(dd.panel, dd.btn);
+        dd.btn.focus();
+      }
+    });
+  }
 }
 
 /**
@@ -405,6 +441,74 @@ function buildToggleChip(label, value, stateSet, onChange) {
   });
 
   return btn;
+}
+
+/**
+ * Build a generic multi-select dropdown panel.
+ * @param {string[]} options — list of values
+ * @param {Set<string>} stateSet — the Set in FilterState to toggle
+ * @param {HTMLButtonElement} triggerBtn
+ * @param {function(): void} onChange
+ * @param {function(string): string} labelFn — maps value to display label
+ * @returns {HTMLDivElement}
+ */
+function buildGenericDropdown(options, stateSet, triggerBtn, onChange, labelFn) {
+  const panel = document.createElement('div');
+  panel.className = 'icf-filter-dropdown__panel';
+  panel.setAttribute('role', 'listbox');
+  panel.setAttribute('aria-multiselectable', 'true');
+  panel.style.display = 'none';
+
+  for (const value of options) {
+    const option = document.createElement('label');
+    option.className = 'icf-filter-dropdown__option';
+    option.setAttribute('role', 'option');
+    option.setAttribute('aria-selected', 'false');
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'icf-filter-dropdown__checkbox';
+    checkbox.value = value;
+
+    const checkMark = document.createElement('span');
+    checkMark.className = 'icf-filter-dropdown__check';
+    checkMark.innerHTML = checkIcon();
+
+    const text = document.createElement('span');
+    text.className = 'icf-filter-dropdown__text';
+    text.textContent = labelFn(value);
+
+    option.appendChild(checkbox);
+    option.appendChild(checkMark);
+    option.appendChild(text);
+
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        stateSet.add(value);
+        option.setAttribute('aria-selected', 'true');
+      } else {
+        stateSet.delete(value);
+        option.setAttribute('aria-selected', 'false');
+      }
+      updateSpecTrigger(triggerBtn, stateSet.size);
+      onChange();
+    });
+
+    panel.appendChild(option);
+  }
+
+  triggerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = panel.style.display !== 'none';
+    if (isOpen) {
+      closeSpecDropdown(panel, triggerBtn);
+    } else {
+      panel.style.display = '';
+      triggerBtn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  return panel;
 }
 
 /**

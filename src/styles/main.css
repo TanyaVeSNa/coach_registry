@@ -204,9 +204,14 @@
 .icf-hero__lang {
   position: absolute;
   top: 20px;
-  right: 0;
-  margin-right: max(24px, calc((100vw - var(--icf-max-width)) / 2));
+  right: 24px;
   z-index: 3;
+}
+
+@media (min-width: 769px) {
+  .icf-hero__lang {
+    right: calc((100vw - var(--icf-max-width)) / 2);
+  }
 }
 
 @media (max-width: 768px) {
@@ -708,16 +713,16 @@
 .icf-badge--pcc,
 .icf-badge--acc,
 .icf-badge--member {
-  background: var(--icf-cta);
-  color: var(--icf-text-primary);
+  background: var(--icf-badge-acc-bg);
+  color: var(--icf-badge-acc-text);
 }
 
 .icf-card:hover .icf-badge--mcc,
 .icf-card:hover .icf-badge--pcc,
 .icf-card:hover .icf-badge--acc,
 .icf-card:hover .icf-badge--member {
-  background: #ffffff;
-  color: var(--icf-text-primary);
+  background: var(--icf-badge-acc-bg);
+  color: var(--icf-badge-acc-text);
 }
 
 
