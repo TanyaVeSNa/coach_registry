@@ -7,27 +7,27 @@
 /* --- Design Tokens (Custom Properties) --- */
 
 .icf-registry {
-  /* Colors — Core (ICF Brand Palette) */
+  /* Colors — Core (ICCS Brand Palette) */
   --icf-bg: #ffffff;
   --icf-surface: #ffffff;
-  --icf-text-primary: #212251;
-  --icf-text-secondary: #2b379b;
+  --icf-text-primary: #333333;
+  --icf-text-secondary: #C5A55A;
   --icf-text-tertiary: #666666;
   --icf-text-muted: #999999;
   --icf-text-faint: #aaaaaa;
-  --icf-accent: #5778fa;
-  --icf-accent-text: #4662e0;
-  --icf-cta: #efcb30;
-  --icf-cta-hover: #e0bc20;
+  --icf-accent: #C5A55A;
+  --icf-accent-text: #B08D3E;
+  --icf-cta: #C5A55A;
+  --icf-cta-hover: #B08D3E;
   --icf-border: #e0dcd4;
   --icf-border-input: #d8d2c8;
   --icf-divider: #ede5d8;
 
   /* Colors — Surfaces */
-  --icf-tag-bg: #ede5d8;
-  --icf-tag-bg-hover: #e0d8ca;
+  --icf-tag-bg: #EBF2F5;
+  --icf-tag-bg-hover: #dce8ed;
   --icf-chip-bg: #ffffff;
-  --icf-chip-active-bg: #212251;
+  --icf-chip-active-bg: #C5A55A;
   --icf-chip-active-text: #ffffff;
   --icf-avatar-fallback: #e8e0d4;
 
@@ -47,8 +47,8 @@
   --icf-telegram-text: #0088cc;
   --icf-telegram-hover-bg: #f0f8ff;
   --icf-email-border: #d8d2c8;
-  --icf-email-text: #212251;
-  --icf-email-hover-bg: #f8f0e4;
+  --icf-email-text: #333333;
+  --icf-email-hover-bg: #EBF2F5;
 
   /* Colors — AI (Phase 2) */
   --icf-ai-gradient-start: #212251;
@@ -80,12 +80,12 @@
   --icf-space-11: 32px;
   --icf-space-12: 40px;
 
-  /* Shadows (blue-tinted, per ICF brand) */
+  /* Shadows (neutral gray) */
   --icf-shadow-none: none;
-  --icf-shadow-sm: 0 1px 3px rgba(33, 34, 81, 0.04);
-  --icf-shadow-md: 0 4px 20px rgba(33, 34, 81, 0.08);
-  --icf-shadow-lg: 0 8px 30px rgba(33, 34, 81, 0.12);
-  --icf-shadow-xl: 0 12px 40px rgba(33, 34, 81, 0.16);
+  --icf-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --icf-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --icf-shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.10);
+  --icf-shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.14);
 
   /* Z-index */
   --icf-z-base: 0;
@@ -96,10 +96,10 @@
   --icf-z-toast: 300;
 
   /* Typography */
-  --icf-font: 'Plus Jakarta Sans',
+  --icf-font: 'Raleway',
     -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
-  --icf-font-heading: 'Nunito', 'Quicksand',
+  --icf-font-heading: 'Raleway',
     -apple-system, BlinkMacSystemFont,
     'Segoe UI', sans-serif;
 
@@ -163,16 +163,16 @@
 .icf-page-title {
   font-family: var(--icf-font-heading);
   font-size: 44px;
-  font-weight: 400;
+  font-weight: 300;
   color: var(--icf-text-primary);
   line-height: 1.4;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .icf-page-title__highlight {
-  background: var(--icf-cta);
+  background: linear-gradient(transparent 60%, rgba(197, 165, 90, 0.2) 60%);
   display: inline;
-  padding: 4px 20px;
-  border-radius: 100px;
 }
 
 
@@ -1079,7 +1079,7 @@
   }
 
   .icf-page-title__highlight {
-    padding: 3px 14px;
+    /* inherits gradient underline from base rule */
   }
 
   .icf-header__logo {
