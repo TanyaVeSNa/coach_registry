@@ -1,0 +1,5 @@
+# Cloudflare Pages — ignore large/dev-only files
+temp/
+docs/
+.claude/
+.git/
