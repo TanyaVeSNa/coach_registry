@@ -26,7 +26,6 @@ import {
   setLanguage,
   getCurrentLanguage,
   t,
-  setBrandOverrides,
   SUPPORTED_LANGS,
 } from './i18n.js';
 import { esc } from './utils.js';
@@ -36,7 +35,6 @@ import { renderFilters } from './filters.js';
 import { renderRegistrationForm } from './registration.js';
 import { submitRegistration } from './submit.js';
 import { renderEditView } from './edit.js';
-import { fetchConfig, applyConfig } from './config.js';
 
 /**
  * @typedef {Object} RegistryConfig
@@ -457,41 +455,12 @@ async function init(config = {}) {
     renderCatalog('loading');
   }
 
-  // Load remote config and coach data in parallel
-  const [remoteConfig] = await Promise.all([
-    fetchConfig(config.apiUrl),
-    (startView === 'catalog' || !startView)
-      ? fetchCoaches(appConfig.sheetId)
-          .then((data) => { coaches = data; })
-          .catch(() => { coaches = []; })
-      : Promise.resolve(),
-  ]);
-
-  // Apply remote config (brand overrides, sheetId fallback)
-  if (remoteConfig) {
-    applyConfig(remoteConfig, containerEl);
-
-    if (remoteConfig.brandName) {
-      setBrandOverrides(remoteConfig.brandName, {
-        registryName: remoteConfig.registryName,
-        location: remoteConfig.location,
-      });
-    }
-
-    if (remoteConfig.sheetId && !config.sheetId) {
-      appConfig.sheetId = remoteConfig.sheetId;
-    }
-
-    if (remoteConfig.logoUrl && !config.logoUrl) {
-      appConfig.logoUrl = remoteConfig.logoUrl;
-    }
-  }
-
-  // Re-render catalog with real data
+  // Load coach data (no remote config needed — all branding is in CSS/HTML)
   if (startView === 'catalog' || !startView) {
-    if (coaches.length > 0) {
+    try {
+      coaches = await fetchCoaches(appConfig.sheetId);
       renderCatalog('ready');
-    } else {
+    } catch (_err) {
       renderCatalog('error', esc(t('errorState')));
     }
   }
