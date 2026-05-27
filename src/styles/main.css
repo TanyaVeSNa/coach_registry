@@ -622,8 +622,8 @@
 }
 
 .icf-card:hover {
-  background: #C5A55A;
-  border-color: #C5A55A;
+  background: #d7bf67;
+  border-color: #d7bf67;
   box-shadow: var(--icf-shadow-md);
 }
 
