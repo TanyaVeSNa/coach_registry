@@ -159,3 +159,23 @@
 **Decision**: Move the Google Apps Script deployment URL from hardcoded strings in 5 API files to a single Vercel environment variable (`APPS_SCRIPT_URL`).
 **Rationale**: The URL was duplicated in `api/submit.js`, `api/config.js`, `api/request-edit-link.js`, `api/verify-token.js`, and `api/save-profile.js`. Changing it required editing all files and redeploying. With an env var, new instances only need to set one variable in Vercel dashboard — no code changes.
 **Trade-offs**: Requires Vercel dashboard access to configure. Clear error message returned if env var is not set.
+
+### D-022: Hardcoded branding for ICCS instance (no remote config)
+**Date**: 2026-05-27
+**Client**: ICCS (iccs-course.com), deployed at `coaches.iccs-course.com`
+**Decision**: Remove the `/api/config` call from the ICCS instance page-load init. All branding (colors, font, logo, title, hero image) is hardcoded directly in `src/styles/main.css` and `src/index.html`. The `APPS_SCRIPT_URL` env var is still used for form API calls.
+**Rationale**: The generic config flow (Settings sheet → Apps Script → `/api/config` → CSS custom properties) added ~0.5s latency on first load and caused a visible flash of unstyled content while config was fetched. For a client with a fixed brand identity that will not change via spreadsheet, this overhead is unnecessary. Hardcoding eliminates one HTTP request and makes the hero render instantly. It also removes the complexity of cache invalidation (stale localStorage config causing wrong colors on return visits).
+**Trade-offs**: Brand changes now require a code edit and git push instead of editing a spreadsheet cell. Acceptable for a dedicated client fork — the client does not need self-serve rebranding. The generic template (ICF Cyprus) retains full remote config capability.
+
+### D-023: Glassmorphism card design for ICCS
+**Date**: 2026-05-27
+**Decision**: ICCS cards use semi-transparent backgrounds with `backdrop-filter: blur` (glassmorphism) over a fixed full-viewport hero background image. Hover state switches card background to gold (`#d7bf67`) with chocolate (`#3d3629`) specialization tags.
+**Rationale**: The ICCS main site (iccs-course.com) uses a warm, premium aesthetic. Glassmorphism over the lake/boats background image creates a cohesive visual identity. The gold hover matches the burger menu color on the main site, creating visual consistency across the two domains.
+**Trade-offs**: `backdrop-filter` is not supported in older browsers (Firefox < 103, IE). Acceptable for the ICCS audience. `background-attachment: fixed` does not work on iOS Safari (parallax disabled on mobile by the browser engine) — the background renders flat on iPhone, which is still acceptable.
+
+### D-024: Performance — parallel hero render and data fetch
+**Date**: 2026-05-27
+**Decision**: In the ICCS instance, the hero section and filter UI render immediately from hardcoded HTML/CSS. The Google Sheets data fetch runs in parallel and populates the coach cards when ready, without blocking the initial paint.
+**Rationale**: In the generic template, page init waited for `/api/config` before rendering anything. For ICCS with hardcoded config, there is no reason to block render. The hero and empty filter dropdowns appear instantly; coach cards appear ~1–2s later as Sheets CSV loads. This makes the perceived load time feel significantly faster.
+**Implementation**: Removed the config fetch from the init chain in `src/js/app.js` for the ICCS fork. `initFilters()` and `renderHero()` are called synchronously; `fetchCoaches()` is called without await at the top level.
+**Trade-offs**: Coach cards appear slightly after the hero (skeleton state). This is standard progressive loading behavior and was accepted by the client.

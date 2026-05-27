@@ -226,6 +226,109 @@ Either:
 
 ---
 
+---
+
+## ICCS Instance — Reference Configuration
+
+This section documents the live customization made for **ICCS** (iccs-course.com),
+deployed at `coaches.iccs-course.com`. Use it as a reference when customizing
+for a new client whose brand differs significantly from the ICF Cyprus defaults.
+
+### What makes ICCS different from the generic template
+
+The ICCS instance went further than the Settings-sheet configuration allows.
+Several architectural choices were made deliberately to optimize performance and
+match a specific brand identity that could not be achieved through config alone.
+See `docs/project-management/DECISIONS.md`, entries D-022 through D-024.
+
+### Branding
+
+| Element | ICCS value | Where set |
+|---------|-----------|-----------|
+| Primary color | `#d7bf67` (gold, matches iccs-course.com burger menu) | `src/styles/main.css` CSS variables |
+| Text on gold | `#3d3629` (chocolate) | `src/styles/main.css` CSS variables |
+| Font | Inter (closest Google Fonts match for TildaSans used on the main site) | `src/index.html` `<link>` tag |
+| Hero background | Full-viewport lake/boats photo, `background-attachment: fixed` | `src/styles/main.css` `.hero` |
+| Logo | ICCS logo PNG, hardcoded in `src/index.html` | HTML `<img>` tag |
+| Page title | "ICCS рекомендует коучей" | `src/index.html` `<title>` |
+| Favicon | Direct URL to `static.tildacdn.com` (not `optim.tildacdn.com` — that redirects) | `src/index.html` `<link rel="icon">` |
+| Tab title in hero | Two-line: "ICCS РЕКОМЕНДУЕТ КОУЧЕЙ" | `src/index.html` hardcoded `<h1>` |
+
+### UI customizations
+
+**Cards**
+- Glassmorphism style: semi-transparent white background with `backdrop-filter: blur`
+- Hover state: gold background (`#d7bf67`) with chocolate (`#3d3629`) specialization tags
+
+**Filters**
+- All converted from chip-style to `<select>` dropdowns
+- Centered layout, not left-aligned
+- Labels in Russian: "Сертификация ICF", "Стоимость сессии"
+
+**Navigation**
+- Language switcher removed entirely (ICCS operates in Russian only)
+- "На главную" button: gold square with house icon, top-right corner, links to `iccs-course.com`
+
+**Specialization labels**
+- Translated to Russian in both card display and filter options
+- Mapping defined in `src/js/i18n.js`: Career→Карьера, Leadership→Лидерство, etc.
+
+**Success page**
+- Brand name removed from submission confirmation text ("Администратор рассмотрит заявку...")
+- Keeps text generic so it reads naturally regardless of org name
+
+**City display**
+- City shows next to "Офлайн" on coach cards (column was already supported in code;
+  required adding a City column to the Google Sheet)
+
+### Remote config
+
+The ICCS instance **does not use** the `/api/config` endpoint at runtime.
+All branding is hardcoded in CSS and HTML. The `APPS_SCRIPT_URL` env var is still
+required for form submission, edit links, and profile saving — only the config
+fetch on page load is removed.
+
+**Why**: See D-022 in DECISIONS.md. Short version: one fewer network request,
+hero renders instantly, no flash of unstyled content, no cache invalidation issues.
+
+### Google Sheet requirements
+
+The ICCS Google Sheet needs these columns that may not exist in a fresh sheet:
+
+| Column | Notes |
+|--------|-------|
+| City | Displayed next to "Офлайн" on cards |
+
+The CSV URL for the Submissions tab must include `?output=csv&headers=1`
+(the `headers=1` parameter is required — without it, the first data row is
+consumed as headers and disappears from the catalog).
+
+### Vercel env vars
+
+| Variable | Purpose |
+|----------|---------|
+| `APPS_SCRIPT_URL` | Google Apps Script web app URL (required) |
+
+No other env vars needed. All visual config is in the source code.
+
+### Checklist for deploying a similar hardcoded-brand instance
+
+- [ ] Fork the repo into a client-specific repository
+- [ ] Replace CSS variables in `src/styles/main.css` (colors, font)
+- [ ] Update `<link>` font import in all HTML files
+- [ ] Replace hero background image in `src/assets/`
+- [ ] Replace logo `<img>` src in `src/index.html`
+- [ ] Update `<title>` and `<h1>` text in `src/index.html`
+- [ ] Update favicon `<link>` in all HTML files (use `static.` CDN, not `optim.` — avoids 302 redirect)
+- [ ] Remove language switcher if client is single-language
+- [ ] Update "На главную" href to client's main site
+- [ ] Translate specialization labels in `src/js/i18n.js` if needed
+- [ ] Add `headers=1` to the Google Sheet CSV URL in `src/js/sheets.js`
+- [ ] Set `APPS_SCRIPT_URL` in Vercel environment variables
+- [ ] Verify `src/index.html` at the repo root matches `src/index.html` (stale root file causes wrong title)
+
+---
+
 ## Updating from upstream
 
 When the original repo gets new features:
