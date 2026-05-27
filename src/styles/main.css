@@ -735,8 +735,8 @@
 .icf-card:hover .icf-badge--pcc,
 .icf-card:hover .icf-badge--acc,
 .icf-card:hover .icf-badge--member {
-  background: var(--icf-badge-acc-bg);
-  color: var(--icf-badge-acc-text);
+  background: #3d3629;
+  color: #ffffff;
 }
 
 
