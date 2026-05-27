@@ -55,12 +55,12 @@ const dictionary = {
   },
   filterLevel: {
     en: 'ICF Level',
-    ru: 'Уровень ICF',
+    ru: 'Сертификация ICF',
     el: 'Επίπεδο ICF',
   },
   filterPrice: {
     en: 'Session Price',
-    ru: 'Цена сессии',
+    ru: 'Стоимость сессии',
     el: 'Τιμή Συνεδρίας',
   },
 
