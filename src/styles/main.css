@@ -164,7 +164,7 @@
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-top: calc(-1 * var(--icf-space-12));
-  margin-bottom: var(--icf-space-11);
+  margin-bottom: var(--icf-space-8);
   min-height: 400px;
   display: flex;
   align-items: center;
@@ -388,6 +388,7 @@
   max-width: var(--icf-max-width);
   margin: 0 auto var(--icf-space-11);
   display: flex;
+  justify-content: center;
   gap: var(--icf-space-4);
   flex-wrap: wrap;
   position: relative;
