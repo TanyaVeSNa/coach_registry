@@ -23,9 +23,8 @@ const dictionary = {
     el: 'Βρείτε Coach',
   },
   pageTitleHighlight: {
-    en: 'ICF Cyprus',
-    ru: 'ICF Cyprus',
-    el: 'ICF Cyprus',
+    en: 'ICCS recommends coaches',
+    ru: 'ICCS рекомендует коучей',
   },
   regPageTitle: {
     en: 'Coach Registration',

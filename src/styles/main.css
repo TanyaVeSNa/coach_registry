@@ -137,58 +137,93 @@
   background-color: var(--icf-bg);
   color: var(--icf-text-primary);
   padding: var(--icf-space-12) var(--icf-space-8);
+  padding-top: 0;
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Decorative SVG brush strokes are positioned absolutely within */
   position: relative;
   overflow: hidden;
 }
 
 
-/* --- Page Header --- */
+/* --- Hero Section --- */
 
-.icf-page-header {
-  max-width: var(--icf-max-width);
-  margin: 0 auto var(--icf-space-11);
+.icf-hero {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-top: calc(-1 * var(--icf-space-12));
+  margin-bottom: var(--icf-space-12);
+  min-height: 420px;
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--icf-space-7);
+  justify-content: center;
+  overflow: hidden;
+}
+
+.icf-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.45);
+  z-index: 1;
+}
+
+.icf-hero__content {
   position: relative;
   z-index: 2;
-}
-
-.icf-page-title {
-  font-family: var(--icf-font-heading);
-  font-size: 44px;
-  font-weight: 200;
-  color: var(--icf-text-primary);
-  line-height: 1.4;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.icf-page-title__highlight {
-  background: linear-gradient(transparent 60%, rgba(197, 165, 90, 0.2) 60%);
-  display: inline;
-}
-
-
-/* --- Header Brand (Logo) --- */
-
-.icf-header__brand {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--icf-space-5);
-  flex-shrink: 0;
+  gap: 24px;
+  text-align: center;
+  padding: 60px 24px;
 }
 
-.icf-header__logo {
-  height: 110px;
+.icf-hero__logo {
+  height: 120px;
   width: auto;
   display: block;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
+}
+
+.icf-hero__title {
+  font-family: var(--icf-font-heading);
+  font-size: 42px;
+  font-weight: 200;
+  color: #333333;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.icf-hero__lang {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  z-index: 3;
+}
+
+@media (max-width: 768px) {
+  .icf-hero {
+    min-height: 320px;
+  }
+
+  .icf-hero__logo {
+    height: 80px;
+  }
+
+  .icf-hero__title {
+    font-size: 28px;
+  }
+
+  .icf-hero__content {
+    padding: 40px 16px;
+    gap: 16px;
+  }
 }
 
 

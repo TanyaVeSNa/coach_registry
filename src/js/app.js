@@ -84,10 +84,17 @@ function findContainer(containerId) {
 }
 
 /**
- * Render the page header: logo (left) + title (center) +
- * language switcher (right) on one line, white background.
+ * Hero background image URL (ICCS brand).
+ */
+const HERO_BG_URL =
+  'https://static.tildacdn.com/tild6563-3738-4235-b433-363632393530/muhammad-ruqi-yaddin.jpg';
+
+/**
+ * Render the page header as a hero section:
+ * full-width background image, centered logo + title,
+ * language switcher in top-right corner.
  * @param {string} [titleKey='pageTitle'] — i18n key for title
- * @param {string} [highlightKey='pageTitleHighlight'] — i18n key for highlight
+ * @param {string} [highlightKey='pageTitleHighlight'] — i18n key
  * @returns {string} HTML string
  */
 function renderHeader(titleKey = 'pageTitle', highlightKey = 'pageTitleHighlight') {
@@ -108,22 +115,23 @@ function renderHeader(titleKey = 'pageTitle', highlightKey = 'pageTitleHighlight
   const logoHTML = appConfig.logoUrl
     ? `<img src="${esc(appConfig.logoUrl)}"
            alt="${esc(t('pageTitleHighlight'))}"
-           class="icf-header__logo">`
+           class="icf-hero__logo">`
     : '';
 
   return `
-    <header class="icf-page-header">
-      <div class="icf-header__brand">
-        ${logoHTML}
-      </div>
-      <h1 class="icf-page-title">
-        <span data-i18n="${titleKey}">${esc(t(titleKey))}</span>
-        <span class="icf-page-title__highlight" data-i18n="${highlightKey}">${esc(t(highlightKey))}</span>
-      </h1>
-      <nav class="icf-lang-switch" role="group"
+    <header class="icf-hero"
+            style="background-image: url('${HERO_BG_URL}')">
+      <div class="icf-hero__overlay"></div>
+      <nav class="icf-lang-switch icf-hero__lang" role="group"
            aria-label="Language">
         ${langButtons}
       </nav>
+      <div class="icf-hero__content">
+        ${logoHTML}
+        <h1 class="icf-hero__title">
+          <span data-i18n="${highlightKey}">${esc(t(highlightKey))}</span>
+        </h1>
+      </div>
     </header>
   `;
 }
