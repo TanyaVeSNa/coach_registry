@@ -84,10 +84,12 @@ function findContainer(containerId) {
 }
 
 /**
- * Hero background image URL (ICCS brand).
+ * Hero assets (ICCS brand).
  */
 const HERO_BG_URL =
   'https://static.tildacdn.com/tild6563-3738-4235-b433-363632393530/muhammad-ruqi-yaddin.jpg';
+const HERO_LOGO_URL =
+  'https://optim.tildacdn.com/tild6339-3631-4461-b232-323637323339/-/resize/360x/-/format/webp/ICCS_.png.webp';
 
 /**
  * Render the page header as a hero section:
@@ -112,12 +114,6 @@ function renderHeader(titleKey = 'pageTitle', highlightKey = 'pageTitleHighlight
     })
     .join('');
 
-  const logoHTML = appConfig.logoUrl
-    ? `<img src="${esc(appConfig.logoUrl)}"
-           alt="${esc(t('pageTitleHighlight'))}"
-           class="icf-hero__logo">`
-    : '';
-
   return `
     <header class="icf-hero"
             style="background-image: url('${HERO_BG_URL}')">
@@ -127,7 +123,9 @@ function renderHeader(titleKey = 'pageTitle', highlightKey = 'pageTitleHighlight
         ${langButtons}
       </nav>
       <div class="icf-hero__content">
-        ${logoHTML}
+        <img src="${HERO_LOGO_URL}"
+             alt="ICCS"
+             class="icf-hero__logo">
         <h1 class="icf-hero__title">
           <span data-i18n="${highlightKey}">${esc(t(highlightKey))}</span>
         </h1>

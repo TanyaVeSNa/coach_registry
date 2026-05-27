@@ -31,13 +31,13 @@
   --icf-chip-active-text: #ffffff;
   --icf-avatar-fallback: #e8e0d4;
 
-  /* Colors — ICF Badges (DO NOT CHANGE) */
-  --icf-badge-mcc-bg: #fff3cd;
-  --icf-badge-mcc-text: #7a5c00;
-  --icf-badge-pcc-bg: #d4edda;
-  --icf-badge-pcc-text: #155724;
-  --icf-badge-acc-bg: #d1ecf1;
-  --icf-badge-acc-text: #0c5460;
+  /* Colors — ICF Badges (ICCS brand gold) */
+  --icf-badge-mcc-bg: #C5A55A;
+  --icf-badge-mcc-text: #ffffff;
+  --icf-badge-pcc-bg: #C5A55A;
+  --icf-badge-pcc-text: #ffffff;
+  --icf-badge-acc-bg: #C5A55A;
+  --icf-badge-acc-text: #ffffff;
 
   /* Colors — Contact (brand colors preserved) */
   --icf-whatsapp-border: #25D366;
@@ -162,6 +162,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .icf-hero__overlay {
@@ -203,7 +204,8 @@
 .icf-hero__lang {
   position: absolute;
   top: 20px;
-  right: 24px;
+  right: 0;
+  margin-right: max(24px, calc((100vw - var(--icf-max-width)) / 2));
   z-index: 3;
 }
 
