@@ -56,6 +56,9 @@ const FORMATS = [
 
 /** ICF Level options mapped to i18n keys */
 const ICF_LEVELS = [
+  { value: 'ACSTH', i18nKey: 'regLevelACSTH' },
+  { value: 'Level 1', i18nKey: 'regLevelLevel1' },
+  { value: 'Level 2', i18nKey: 'regLevelLevel2' },
   { value: 'ACC', i18nKey: 'regLevelACC' },
   { value: 'PCC', i18nKey: 'regLevelPCC' },
   { value: 'MCC', i18nKey: 'regLevelMCC' },

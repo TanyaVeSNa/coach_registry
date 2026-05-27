@@ -742,6 +742,9 @@
 .icf-badge--mcc,
 .icf-badge--pcc,
 .icf-badge--acc,
+.icf-badge--acsth,
+.icf-badge--level1,
+.icf-badge--level2,
 .icf-badge--member {
   background: var(--icf-badge-acc-bg);
   color: var(--icf-badge-acc-text);
@@ -750,6 +753,9 @@
 .icf-card:hover .icf-badge--mcc,
 .icf-card:hover .icf-badge--pcc,
 .icf-card:hover .icf-badge--acc,
+.icf-card:hover .icf-badge--acsth,
+.icf-card:hover .icf-badge--level1,
+.icf-card:hover .icf-badge--level2,
 .icf-card:hover .icf-badge--member {
   background: #3d3629;
   color: #ffffff;

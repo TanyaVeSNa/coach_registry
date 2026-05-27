@@ -65,6 +65,9 @@ const BADGE_CONFIG = {
   MCC: { icon: '\u2726', cssClass: 'icf-badge--mcc' },
   PCC: { icon: '\u25B2', cssClass: 'icf-badge--pcc' },
   ACC: { icon: '\u25CF', cssClass: 'icf-badge--acc' },
+  ACSTH: { icon: '\u25CB', cssClass: 'icf-badge--acsth' },
+  'Level 2': { icon: '\u25B3', cssClass: 'icf-badge--level2' },
+  'Level 1': { icon: '\u25B3', cssClass: 'icf-badge--level1' },
   Member: { icon: '', cssClass: 'icf-badge--member' },
 };
 

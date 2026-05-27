@@ -152,7 +152,10 @@ function normalizeLevel(value) {
   const upper = (value || '').toUpperCase();
   if (upper.includes('MCC')) return 'MCC';
   if (upper.includes('PCC')) return 'PCC';
-  if (upper.includes('ACC')) return 'ACC';
+  if (upper.includes('ACC') && !upper.includes('ACSTH')) return 'ACC';
+  if (upper.includes('ACSTH')) return 'ACSTH';
+  if (upper.includes('LEVEL 2') || upper.includes('LVL 2')) return 'Level 2';
+  if (upper.includes('LEVEL 1') || upper.includes('LVL 1')) return 'Level 1';
   return 'Member';
 }
 

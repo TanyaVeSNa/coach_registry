@@ -45,7 +45,7 @@ const PRICE_RANGES = [
 ];
 
 /** ICF credential levels displayed as filter chips */
-const ICF_LEVELS = ['ACC', 'PCC', 'MCC'];
+const ICF_LEVELS = ['ACSTH', 'Level 1', 'Level 2', 'ACC', 'PCC', 'MCC'];
 
 /** Fixed language filter options (only 3 main languages) */
 const LANG_FILTER_OPTIONS = ['English', 'Russian'];

@@ -681,25 +681,33 @@ const dictionary = {
   },
 
   // ICF Level options
+  regLevelACSTH: {
+    en: 'ACSTH (Approved Coach Specific Training Hours)',
+    ru: 'ACSTH (Approved Coach Specific Training Hours)',
+  },
+  regLevelLevel1: {
+    en: 'Level 1 (ICF Certified)',
+    ru: 'Level 1 (\u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u044F ICF)',
+  },
+  regLevelLevel2: {
+    en: 'Level 2 (ICF Certified)',
+    ru: 'Level 2 (\u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u044F ICF)',
+  },
   regLevelACC: {
     en: 'ACC (Associate Certified Coach)',
     ru: 'ACC (Associate Certified Coach)',
-    el: 'ACC (Associate Certified Coach)',
   },
   regLevelPCC: {
     en: 'PCC (Professional Certified Coach)',
     ru: 'PCC (Professional Certified Coach)',
-    el: 'PCC (Professional Certified Coach)',
   },
   regLevelMCC: {
     en: 'MCC (Master Certified Coach)',
     ru: 'MCC (Master Certified Coach)',
-    el: 'MCC (Master Certified Coach)',
   },
   regLevelMember: {
     en: 'No ICF certification',
     ru: '\u041D\u0435\u0442 \u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438 \u0432 ICF',
-    el: 'ICF Member (\u03C7\u03C9\u03C1\u03AF\u03C2 \u03C0\u03B9\u03C3\u03C4\u03BF\u03C0\u03BF\u03AF\u03B7\u03C3\u03B7)',
   },
 
   // Submit button
