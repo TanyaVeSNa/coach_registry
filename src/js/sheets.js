@@ -19,6 +19,7 @@
  * @property {string} icfLevel — 'ACC' | 'PCC' | 'MCC' | 'Member'
  * @property {string[]} languages
  * @property {string} format — 'online' | 'offline' | 'both'
+ * @property {string} city
  * @property {number} priceMin
  * @property {number} priceMax
  * @property {string} bio1
@@ -200,6 +201,7 @@ const HEADER_MAP = {
   'instagram': 'instagram',
   'linkedin': 'linkedin',
   'facebook': 'facebook',
+  'city': 'city',
   'status': 'status',
   'icf membership': 'icfMembership',
   'icfmembership': 'icfMembership',
@@ -237,6 +239,7 @@ function csvToCoaches(rows) {
       icfLevel: normalizeLevel(raw.icfLevel),
       languages: splitList(raw.languages),
       format: normalizeFormat(raw.format),
+      city: raw.city || '',
       priceMin: parseInt(raw.priceMin, 10) || 0,
       priceMax: parseInt(raw.priceMax, 10) || 0,
       bio1: raw.bio1 || '',

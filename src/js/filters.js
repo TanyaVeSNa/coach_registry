@@ -4,7 +4,6 @@
  * Renders filter chips for:
  * - Specialization (multi-select dropdown)
  * - Language (multi-select chips)
- * - Format (Online, Offline, Both — multi-select chips)
  * - ICF Level (ACC, PCC, MCC — multi-select chips)
  * - Price range (predefined range chips)
  *
@@ -25,7 +24,6 @@ let currentOutsideClickHandler = null;
  * @typedef {Object} FilterState
  * @property {Set<string>} specializations
  * @property {Set<string>} languages
- * @property {Set<string>} formats
  * @property {Set<string>} levels
  * @property {Set<string>} priceRanges
  */
@@ -48,12 +46,6 @@ const PRICE_RANGES = [
 
 /** ICF credential levels displayed as filter chips */
 const ICF_LEVELS = ['ACC', 'PCC', 'MCC'];
-
-/** Format options with their i18n keys */
-const FORMAT_OPTIONS = [
-  { value: 'online', labelKey: 'formatOnline' },
-  { value: 'offline', labelKey: 'formatOffline' },
-];
 
 /** Fixed language filter options (only 3 main languages) */
 const LANG_FILTER_OPTIONS = ['English', 'Russian'];
@@ -85,7 +77,6 @@ function createEmptyState() {
   return {
     specializations: new Set(),
     languages: new Set(),
-    formats: new Set(),
     levels: new Set(),
     priceRanges: new Set(),
   };
@@ -145,19 +136,6 @@ export function applyFilters(coaches, state) {
         (l) => state.languages.has(l)
       );
       if (!match) return false;
-    }
-
-    // Format: OR within group
-    // "both" coaches match any format selection
-    if (state.formats.size > 0) {
-      if (coach.format === 'both') {
-        // "both" coaches always pass format filter
-      } else if (!state.formats.has(coach.format)) {
-        // Also pass if "both" is selected in the filter
-        if (!state.formats.has('both')) {
-          return false;
-        }
-      }
     }
 
     // ICF Level: OR within group
@@ -273,7 +251,6 @@ export function renderFilters(coaches, container, onFilterChange) {
 
     const hasActive = state.specializations.size > 0
       || state.languages.size > 0
-      || state.formats.size > 0
       || state.levels.size > 0
       || state.priceRanges.size > 0;
 
@@ -320,19 +297,7 @@ export function renderFilters(coaches, container, onFilterChange) {
     wrapper.appendChild(chip);
   }
 
-  // 3. Format chips
-  for (const opt of FORMAT_OPTIONS) {
-    const chip = buildToggleChip(
-      t(opt.labelKey),
-      opt.value,
-      state.formats,
-      update
-    );
-    chip.setAttribute('data-i18n-label', opt.labelKey);
-    wrapper.appendChild(chip);
-  }
-
-  // 4. ICF Level chips (on new line)
+  // 3. ICF Level chips (on new line)
   const levelBreak = document.createElement('div');
   levelBreak.className = 'icf-filters__break';
   wrapper.appendChild(levelBreak);
@@ -373,7 +338,6 @@ export function renderFilters(coaches, container, onFilterChange) {
   clearBtn.addEventListener('click', () => {
     state.specializations.clear();
     state.languages.clear();
-    state.formats.clear();
     state.levels.clear();
     state.priceRanges.clear();
     resetAllChips(wrapper);

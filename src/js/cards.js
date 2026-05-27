@@ -260,18 +260,30 @@ function formatPrice(priceMin, priceMax) {
 
 
 /**
- * Get the format icon and label for the meta row.
+ * Get the format icon(s) and label(s) for the meta row.
+ * Returns an array to support showing separate items for
+ * "both" format (online + city).
  * @param {string} format -- 'online' | 'offline' | 'both'
- * @returns {{ icon: string, label: string }}
+ * @param {string} [city] -- optional city name
+ * @returns {Array<{ icon: string, label: string }>}
  */
-function getFormatMeta(format) {
+function getFormatMeta(format, city) {
   switch (format) {
     case 'offline':
-      return { icon: ICONS.mapPin, label: t('formatOffline') };
+      if (city) {
+        return [{ icon: ICONS.mapPin, label: city }];
+      }
+      return [{ icon: ICONS.mapPin, label: t('formatOffline') }];
     case 'both':
-      return { icon: ICONS.monitor, label: t('formatBoth') };
+      if (city) {
+        return [
+          { icon: ICONS.monitor, label: t('formatOnline') },
+          { icon: ICONS.mapPin, label: city },
+        ];
+      }
+      return [{ icon: ICONS.monitor, label: t('formatBoth') }];
     default:
-      return { icon: ICONS.monitor, label: t('formatOnline') };
+      return [{ icon: ICONS.monitor, label: t('formatOnline') }];
   }
 }
 
@@ -283,8 +295,15 @@ function getFormatMeta(format) {
  */
 function renderMeta(coach) {
   const langText = coach.languages.join(', ');
-  const formatMeta = getFormatMeta(coach.format);
+  const formatItems = getFormatMeta(coach.format, coach.city);
   const priceText = formatPrice(coach.priceMin, coach.priceMax);
+
+  const formatHTML = formatItems
+    .map((item) => `<span class="icf-meta__item">
+        ${item.icon}
+        ${esc(item.label)}
+      </span>`)
+    .join('');
 
   return `
     <div class="icf-meta">
@@ -292,10 +311,7 @@ function renderMeta(coach) {
         ${ICONS.globe}
         ${esc(langText)}
       </span>
-      <span class="icf-meta__item">
-        ${formatMeta.icon}
-        ${esc(formatMeta.label)}
-      </span>
+      ${formatHTML}
       <span class="icf-meta__item">
         ${ICONS.price}
         ${esc(priceText)}

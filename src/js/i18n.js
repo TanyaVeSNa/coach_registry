@@ -72,9 +72,9 @@ const dictionary = {
     el: 'Online',
   },
   formatOffline: {
-    en: 'Offline (Moscow)',
-    ru: 'Офлайн (Москва)',
-    el: 'Δια ζώσης (Μόσχα)',
+    en: 'Offline',
+    ru: 'Офлайн',
+    el: 'Offline',
   },
   formatBoth: {
     en: 'Online + Offline',
@@ -642,14 +642,26 @@ const dictionary = {
     el: 'Online',
   },
   regFormatOffline: {
-    en: 'Offline (Moscow)',
-    ru: '\u041E\u0444\u043B\u0430\u0439\u043D (\u041C\u043E\u0441\u043A\u0432\u0430)',
-    el: 'Offline (Moscow)',
+    en: 'Offline',
+    ru: '\u041E\u0444\u043B\u0430\u0439\u043D',
+    el: 'Offline',
   },
   regFormatBoth: {
     en: 'Both',
     ru: '\u041E\u0431\u0430',
     el: '\u039A\u03B1\u03B9 \u03C4\u03B1 \u03B4\u03CD\u03BF',
+  },
+
+  // City field
+  regLabelCity: {
+    en: 'City',
+    ru: '\u0413\u043E\u0440\u043E\u0434',
+    el: 'City',
+  },
+  regPlaceholderCity: {
+    en: 'e.g. Moscow',
+    ru: '\u043D\u0430\u043F\u0440. \u041C\u043E\u0441\u043A\u0432\u0430',
+    el: 'e.g. Moscow',
   },
 
   // ICF Level options

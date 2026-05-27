@@ -667,6 +667,21 @@ function buildFormHTML() {
           options: FORMATS,
           required: true,
         })}
+
+        <div class="icf-form__group" id="${uid('city-group')}"
+          style="display:none">
+          <label class="icf-form__label" for="${uid('city')}">
+            <span data-i18n="regLabelCity">${esc(t('regLabelCity'))}</span>
+          </label>
+          <input
+            class="icf-form__input"
+            type="text"
+            id="${uid('city')}"
+            name="${uid('city')}"
+            placeholder="${esc(t('regPlaceholderCity'))}"
+            data-i18n-placeholder="regPlaceholderCity"
+          >
+        </div>
       </div>
 
       <!-- Section 3: Pricing -->
@@ -799,6 +814,7 @@ function collectFormData(form) {
     icfLevel: radio(uid('icf-level')),
     languages: checked(uid('languages')),
     format: radio(uid('format')),
+    city: val(uid('city')),
     priceMin: parseInt(val(uid('price-min')), 10) || 0,
     priceMax: parseInt(val(uid('price-max')), 10) || 0,
     byRequest,
@@ -1122,6 +1138,23 @@ export function renderRegistrationForm(container, onSubmit) {
       updatePreview();
     });
   }
+
+  // --- Format radios toggle city field visibility ---
+  const cityGroup = form.querySelector(`#${uid('city-group')}`);
+  const formatRadios = form.querySelectorAll(
+    `input[name="${uid('format')}"]`
+  );
+  formatRadios.forEach((radio) => {
+    radio.addEventListener('change', () => {
+      if (!cityGroup) return;
+      const val = radio.value;
+      if (val === 'offline' || val === 'both') {
+        cityGroup.style.display = '';
+      } else {
+        cityGroup.style.display = 'none';
+      }
+    });
+  });
 
   // --- Bio word counters (Bio 1 + Bio 2) ---
   /**
