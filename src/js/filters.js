@@ -336,21 +336,34 @@ export function renderFilters(coaches, container, onFilterChange) {
   levelContainer.appendChild(levelPanel);
   wrapper.appendChild(levelContainer);
 
-  // 5. Price range chips (on new line)
-  const priceBreak = document.createElement('div');
-  priceBreak.className = 'icf-filters__break';
-  wrapper.appendChild(priceBreak);
+  // 5. Price range dropdown
+  const priceContainer = document.createElement('div');
+  priceContainer.className = 'icf-filter-dropdown';
 
-  for (const range of PRICE_RANGES) {
-    const chip = buildToggleChip(
-      t(range.labelKey),
-      range.key,
-      state.priceRanges,
-      update
-    );
-    chip.setAttribute('data-i18n-label', range.labelKey);
-    wrapper.appendChild(chip);
-  }
+  const priceBtn = document.createElement('button');
+  priceBtn.className = 'icf-filter-chip';
+  priceBtn.setAttribute('aria-expanded', 'false');
+  priceBtn.setAttribute('aria-haspopup', 'true');
+  priceBtn.innerHTML = `${filterIcon()}
+    <span data-i18n="filterPrice">${t('filterPrice')}</span>
+    <span class="icf-filter-chip__count" style="display:none"></span>
+    ${chevronIcon()}`;
+
+  const priceOptions = PRICE_RANGES.map((r) => r.key);
+  const pricePanel = buildGenericDropdown(
+    priceOptions,
+    state.priceRanges,
+    priceBtn,
+    update,
+    (key) => {
+      const range = PRICE_RANGES.find((r) => r.key === key);
+      return range ? t(range.labelKey) : key;
+    }
+  );
+
+  priceContainer.appendChild(priceBtn);
+  priceContainer.appendChild(pricePanel);
+  wrapper.appendChild(priceContainer);
 
   // 6. Clear all button (hidden initially)
   const clearBtn = document.createElement('button');
@@ -368,6 +381,7 @@ export function renderFilters(coaches, container, onFilterChange) {
     resetSpecDropdown(specPanel, specBtn);
     resetSpecDropdown(langPanel, langBtn);
     resetSpecDropdown(levelPanel, levelBtn);
+    resetSpecDropdown(pricePanel, priceBtn);
     update();
   });
   wrapper.appendChild(clearBtn);
@@ -387,6 +401,7 @@ export function renderFilters(coaches, container, onFilterChange) {
     { container: specContainer, panel: specPanel, btn: specBtn },
     { container: langContainer, panel: langPanel, btn: langBtn },
     { container: levelContainer, panel: levelPanel, btn: levelBtn },
+    { container: priceContainer, panel: pricePanel, btn: priceBtn },
   ];
 
   if (currentOutsideClickHandler) {
