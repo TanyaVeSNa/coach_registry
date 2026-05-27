@@ -126,7 +126,8 @@ function renderHeader(titleKey = 'pageTitle', highlightKey = 'pageTitleHighlight
              alt="ICCS"
              class="icf-hero__logo">
         <h1 class="icf-hero__title">
-          <span data-i18n="${highlightKey}">${esc(t(highlightKey))}</span>
+          <span data-i18n="pageTitleLine1">${esc(t('pageTitleLine1'))}</span><br>
+          <span data-i18n="pageTitleLine2">${esc(t('pageTitleLine2'))}</span>
         </h1>
       </div>
     </header>

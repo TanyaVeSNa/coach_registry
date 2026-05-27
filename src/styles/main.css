@@ -141,13 +141,19 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
-  overflow: hidden;
-  /* Full-page background image */
+  min-height: 100vh;
+}
+
+/* Fixed full-viewport background image */
+.icf-registry::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   background-image: url('https://static.tildacdn.com/tild6563-3738-4235-b433-363632393530/muhammad-ruqi-yaddin.jpg');
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 
@@ -168,10 +174,7 @@
 }
 
 .icf-hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.35);
-  z-index: 1;
+  display: none;
 }
 
 .icf-hero__content {

@@ -22,6 +22,14 @@ const dictionary = {
     ru: 'Найти коуча',
     el: 'Βρείτε Coach',
   },
+  pageTitleLine1: {
+    en: 'ICCS recommends',
+    ru: 'ICCS рекомендует',
+  },
+  pageTitleLine2: {
+    en: 'coaches',
+    ru: 'коучей',
+  },
   pageTitleHighlight: {
     en: 'ICCS recommends coaches',
     ru: 'ICCS рекомендует коучей',
