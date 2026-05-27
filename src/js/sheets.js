@@ -42,7 +42,7 @@
  * @returns {string}
  */
 function buildSheetURL(sheetId) {
-  return `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+  return `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&headers=1`;
 }
 
 /**
