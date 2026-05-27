@@ -465,16 +465,7 @@ async function init(config = {}) {
       appConfig.logoUrl = remoteConfig.logoUrl;
     }
 
-    // Update page title with brand name
-    if (remoteConfig.registryName) {
-      const suffix = {
-        catalog: '',
-        registration: ' — Registration',
-        edit: ' — Edit Profile',
-      };
-      document.title = remoteConfig.registryName
-        + (suffix[config.view] || '');
-    }
+    // Page title is set in HTML, no override needed
   }
 
   // Initialize language
