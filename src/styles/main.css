@@ -405,14 +405,16 @@
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid var(--icf-border-input);
   border-radius: var(--icf-radius-chip);
-  padding: var(--icf-space-3) var(--icf-space-7);
-  font-size: 14px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: normal;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: var(--icf-space-2);
   color: var(--icf-text-primary);
-  font-family: var(--icf-font);
+  font-family: var(--icf-font-heading);
   transition: border-color 0.15s ease,
     background 0.15s ease, color 0.15s ease;
   line-height: 1.4;
