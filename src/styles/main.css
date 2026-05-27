@@ -164,7 +164,7 @@
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-top: calc(-1 * var(--icf-space-12));
-  margin-bottom: var(--icf-space-8);
+  margin-bottom: var(--icf-space-3);
   min-height: 400px;
   display: flex;
   align-items: center;
@@ -208,7 +208,7 @@
 
 .icf-hero__lang {
   position: absolute;
-  top: 20px;
+  top: 52px;
   right: 24px;
   z-index: 3;
 }
@@ -386,7 +386,7 @@
 
 .icf-filters {
   max-width: var(--icf-max-width);
-  margin: 0 auto var(--icf-space-11);
+  margin: 0 auto var(--icf-space-12);
   display: flex;
   justify-content: center;
   gap: var(--icf-space-4);
