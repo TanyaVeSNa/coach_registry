@@ -13,7 +13,7 @@
  * @module cards
  */
 
-import { t, getCurrentLanguage } from './i18n.js';
+import { t, getCurrentLanguage, translateSpec } from './i18n.js';
 import { renderContactBlock, isSafeUrl } from './contacts.js';
 
 /* ---------------------------------------------------------------
@@ -235,7 +235,7 @@ function renderTags(specializations) {
   if (!specializations || specializations.length === 0) return '';
 
   const tags = specializations
-    .map((s) => `<span class="icf-tag">${esc(s)}</span>`)
+    .map((s) => `<span class="icf-tag">${esc(translateSpec(s))}</span>`)
     .join('');
 
   return `<div class="icf-tags">${tags}</div>`;

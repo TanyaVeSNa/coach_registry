@@ -15,7 +15,7 @@
  * @module filters
  */
 
-import { t } from './i18n.js';
+import { t, translateSpec } from './i18n.js';
 
 /** Track the current outside-click handler to prevent listener accumulation */
 let currentOutsideClickHandler = null;
@@ -58,17 +58,6 @@ const LANG_I18N_MAP = {
 };
 
 /** Specialization display names mapped to i18n keys */
-const SPEC_I18N_MAP = {
-  'Career': 'specCareer',
-  'Leadership': 'specLeadership',
-  'Business': 'specBusiness',
-  'Life': 'specLife',
-  'Relationships': 'specRelationships',
-  'Executive': 'specExecutive',
-  'Health': 'specHealth',
-  'Team': 'specTeam',
-};
-
 /**
  * Create a fresh filter state with all selections empty.
  * @returns {FilterState}
@@ -674,7 +663,5 @@ function getLanguageLabel(langName) {
  * @returns {string}
  */
 function getSpecLabel(specName) {
-  const key = SPEC_I18N_MAP[specName];
-  if (key) return t(key);
-  return specName;
+  return translateSpec(specName);
 }

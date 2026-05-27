@@ -121,8 +121,13 @@ const dictionary = {
   },
   specExecutive: {
     en: 'Executive',
-    ru: 'Executive',
+    ru: 'Руководство',
     el: 'Executive',
+  },
+  specLifeGoals: {
+    en: 'Life Goals',
+    ru: 'Жизненные цели',
+    el: 'Στόχοι Ζωής',
   },
   specHealth: {
     en: 'Health',
@@ -595,7 +600,7 @@ const dictionary = {
   },
   regSpecExecutive: {
     en: 'Executive',
-    ru: 'Executive',
+    ru: 'Руководство',
     el: 'Executive',
   },
 
@@ -996,6 +1001,34 @@ export function setBrandOverrides(brandName, opts = {}) {
       }
     });
   }
+}
+
+/**
+ * Map English specialization names (from Google Sheet)
+ * to i18n dictionary keys.
+ */
+const SPEC_I18N_MAP = {
+  'Career': 'specCareer',
+  'Leadership': 'specLeadership',
+  'Business': 'specBusiness',
+  'Life': 'specLife',
+  'Life Goals': 'specLifeGoals',
+  'Relationships': 'specRelationships',
+  'Executive': 'specExecutive',
+  'Health': 'specHealth',
+  'Team': 'specTeam',
+};
+
+/**
+ * Translate a specialization name to the current language.
+ * Falls back to the original English name if no translation.
+ * @param {string} specName — English spec name from Sheet
+ * @returns {string}
+ */
+export function translateSpec(specName) {
+  const key = SPEC_I18N_MAP[specName];
+  if (key) return t(key);
+  return specName;
 }
 
 export { SUPPORTED_LANGS, dictionary };
