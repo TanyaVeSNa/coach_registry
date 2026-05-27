@@ -947,7 +947,6 @@ export function setBrandOverrides(brandName, opts = {}) {
 
   // Keys that should be set to brandName in all langs
   const brandKeys = [
-    'pageTitleHighlight',
     'regPageTitleHighlight',
     'editPageTitleHighlight',
   ];

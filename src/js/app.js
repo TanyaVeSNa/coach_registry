@@ -115,8 +115,7 @@ function renderHeader(titleKey = 'pageTitle', highlightKey = 'pageTitleHighlight
     .join('');
 
   return `
-    <header class="icf-hero"
-            style="background-image: url('${HERO_BG_URL}')">
+    <header class="icf-hero">
       <div class="icf-hero__overlay"></div>
       <nav class="icf-lang-switch icf-hero__lang" role="group"
            aria-label="Language">

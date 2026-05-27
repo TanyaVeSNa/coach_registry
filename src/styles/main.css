@@ -134,7 +134,6 @@
 
 .icf-registry {
   font-family: var(--icf-font);
-  background-color: var(--icf-bg);
   color: var(--icf-text-primary);
   padding: var(--icf-space-12) var(--icf-space-8);
   padding-top: 0;
@@ -143,6 +142,12 @@
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   overflow: hidden;
+  /* Full-page background image */
+  background-image: url('https://static.tildacdn.com/tild6563-3738-4235-b433-363632393530/muhammad-ruqi-yaddin.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 
@@ -153,11 +158,8 @@
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-top: calc(-1 * var(--icf-space-12));
-  margin-bottom: var(--icf-space-12);
-  min-height: 420px;
-  background-size: cover;
-  background-position: center 40%;
-  background-repeat: no-repeat;
+  margin-bottom: var(--icf-space-11);
+  min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,7 +170,7 @@
 .icf-hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.35);
   z-index: 1;
 }
 
@@ -395,7 +397,9 @@
 }
 
 .icf-filter-chip {
-  background: var(--icf-chip-bg);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid var(--icf-border-input);
   border-radius: var(--icf-radius-chip);
   padding: var(--icf-space-3) var(--icf-space-7);
@@ -481,7 +485,9 @@
   min-width: 240px;
   max-height: 280px;
   overflow-y: auto;
-  background: var(--icf-surface);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--icf-border-input);
   border-radius: var(--icf-radius-input);
   box-shadow: var(--icf-shadow-md);
@@ -578,7 +584,9 @@
 /* --- Card --- */
 
 .icf-card {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: var(--icf-radius-card);
   padding: var(--icf-space-9);
   border: 1px solid var(--icf-border);
