@@ -448,8 +448,8 @@ async function init(config = {}) {
       appConfig.sheetId = remoteConfig.sheetId;
     }
 
-    // Remote logoUrl takes priority over local
-    if (remoteConfig.logoUrl) {
+    // Remote logoUrl used only if no local logoUrl was provided in init()
+    if (remoteConfig.logoUrl && !config.logoUrl) {
       appConfig.logoUrl = remoteConfig.logoUrl;
     }
 

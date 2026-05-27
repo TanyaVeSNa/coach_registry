@@ -153,16 +153,20 @@ export function applyConfig(config, container) {
     }
   }
 
-  // Apply fonts
+  // Apply fonts from remote config only if provided.
+  // Note: the main CSS already loads Inter with the right weights.
+  // Remote fonts override is a fallback for other instances.
   if (config.fonts) {
     if (config.fonts.heading) {
       container.style.setProperty(
-        '--icf-font-heading', `'${config.fonts.heading}'`
+        '--icf-font-heading',
+        `'${config.fonts.heading}', 'Inter', sans-serif`
       );
     }
     if (config.fonts.body) {
       container.style.setProperty(
-        '--icf-font', `'${config.fonts.body}'`
+        '--icf-font',
+        `'${config.fonts.body}', 'Inter', sans-serif`
       );
     }
 
@@ -179,12 +183,12 @@ function loadGoogleFonts(fonts) {
   const families = [];
   if (fonts.heading) {
     families.push(
-      `${fonts.heading}:wght@700;800`
+      `${fonts.heading}:wght@200;300;400;500;600`
     );
   }
   if (fonts.body) {
     families.push(
-      `${fonts.body}:wght@400;500;600;700`
+      `${fonts.body}:wght@200;300;400;500;600`
     );
   }
   if (families.length === 0) return;
