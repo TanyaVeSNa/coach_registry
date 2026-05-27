@@ -67,6 +67,7 @@ function createEmptyState() {
     specializations: new Set(),
     languages: new Set(),
     levels: new Set(),
+    formats: new Set(),
     priceRanges: new Set(),
   };
 }
@@ -130,6 +131,18 @@ export function applyFilters(coaches, state) {
     // ICF Level: OR within group
     if (state.levels.size > 0) {
       if (!state.levels.has(coach.icfLevel)) return false;
+    }
+
+    // Format: OR within group
+    // "both" matches both "online" and "offline" filters
+    if (state.formats.size > 0) {
+      const f = coach.format;
+      const match = state.formats.has(f)
+        || (f === 'both' && (
+          state.formats.has('online')
+          || state.formats.has('offline')
+        ));
+      if (!match) return false;
     }
 
     // Price Range: OR within group
@@ -241,6 +254,7 @@ export function renderFilters(coaches, container, onFilterChange) {
     const hasActive = state.specializations.size > 0
       || state.languages.size > 0
       || state.levels.size > 0
+      || state.formats.size > 0
       || state.priceRanges.size > 0;
 
     clearBtn.style.display = hasActive ? '' : 'none';
@@ -325,6 +339,32 @@ export function renderFilters(coaches, container, onFilterChange) {
   levelContainer.appendChild(levelPanel);
   wrapper.appendChild(levelContainer);
 
+  // 4. Format dropdown
+  const FORMAT_OPTIONS = ['online', 'offline'];
+  const formatContainer = document.createElement('div');
+  formatContainer.className = 'icf-filter-dropdown';
+
+  const formatBtn = document.createElement('button');
+  formatBtn.className = 'icf-filter-chip';
+  formatBtn.setAttribute('aria-expanded', 'false');
+  formatBtn.setAttribute('aria-haspopup', 'true');
+  formatBtn.innerHTML = `${filterIcon()}
+    <span data-i18n="filterFormat">${t('filterFormat')}</span>
+    <span class="icf-filter-chip__count" style="display:none"></span>
+    ${chevronIcon()}`;
+
+  const formatPanel = buildGenericDropdown(
+    FORMAT_OPTIONS,
+    state.formats,
+    formatBtn,
+    update,
+    (v) => v === 'online' ? t('formatOnline') : t('formatOffline')
+  );
+
+  formatContainer.appendChild(formatBtn);
+  formatContainer.appendChild(formatPanel);
+  wrapper.appendChild(formatContainer);
+
   // 5. Price range dropdown
   const priceContainer = document.createElement('div');
   priceContainer.className = 'icf-filter-dropdown';
@@ -365,11 +405,13 @@ export function renderFilters(coaches, container, onFilterChange) {
     state.specializations.clear();
     state.languages.clear();
     state.levels.clear();
+    state.formats.clear();
     state.priceRanges.clear();
     resetAllChips(wrapper);
     resetSpecDropdown(specPanel, specBtn);
     resetSpecDropdown(langPanel, langBtn);
     resetSpecDropdown(levelPanel, levelBtn);
+    resetSpecDropdown(formatPanel, formatBtn);
     resetSpecDropdown(pricePanel, priceBtn);
     update();
   });
@@ -390,6 +432,7 @@ export function renderFilters(coaches, container, onFilterChange) {
     { container: specContainer, panel: specPanel, btn: specBtn },
     { container: langContainer, panel: langPanel, btn: langBtn },
     { container: levelContainer, panel: levelPanel, btn: levelBtn },
+    { container: formatContainer, panel: formatPanel, btn: formatBtn },
     { container: priceContainer, panel: pricePanel, btn: priceBtn },
   ];
 

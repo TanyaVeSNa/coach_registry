@@ -686,12 +686,12 @@ const dictionary = {
     ru: 'ACSTH (Approved Coach Specific Training Hours)',
   },
   regLevelLevel1: {
-    en: 'Level 1 (ICF Certified)',
-    ru: 'Level 1 (\u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u044F ICF)',
+    en: 'Level 1',
+    ru: 'Level 1',
   },
   regLevelLevel2: {
-    en: 'Level 2 (ICF Certified)',
-    ru: 'Level 2 (\u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u044F ICF)',
+    en: 'Level 2',
+    ru: 'Level 2',
   },
   regLevelACC: {
     en: 'ACC (Associate Certified Coach)',
