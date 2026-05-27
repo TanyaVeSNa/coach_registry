@@ -116,63 +116,10 @@ export async function fetchConfig(apiBase = '') {
 export function applyConfig(config, container) {
   if (!config) return;
 
-  // Apply colors as CSS custom properties
-  if (config.colors) {
-    const root = container;
-    if (config.colors.primary) {
-      root.style.setProperty(
-        '--icf-text-primary', config.colors.primary
-      );
-      root.style.setProperty(
-        '--icf-deep-blue', config.colors.primary
-      );
-    }
-    if (config.colors.secondary) {
-      root.style.setProperty(
-        '--icf-text-secondary', config.colors.secondary
-      );
-      root.style.setProperty(
-        '--icf-blue', config.colors.secondary
-      );
-    }
-    if (config.colors.accent) {
-      root.style.setProperty(
-        '--icf-cta', config.colors.accent
-      );
-      root.style.setProperty(
-        '--icf-yellow', config.colors.accent
-      );
-    }
-    if (config.colors.surface) {
-      root.style.setProperty(
-        '--icf-email-hover-bg', config.colors.surface
-      );
-      root.style.setProperty(
-        '--icf-bone', config.colors.surface
-      );
-    }
-  }
-
-  // Apply fonts from remote config only if provided.
-  // Note: the main CSS already loads Inter with the right weights.
-  // Remote fonts override is a fallback for other instances.
-  if (config.fonts) {
-    if (config.fonts.heading) {
-      container.style.setProperty(
-        '--icf-font-heading',
-        `'${config.fonts.heading}', 'Inter', sans-serif`
-      );
-    }
-    if (config.fonts.body) {
-      container.style.setProperty(
-        '--icf-font',
-        `'${config.fonts.body}', 'Inter', sans-serif`
-      );
-    }
-
-    // Load Google Fonts dynamically
-    loadGoogleFonts(config.fonts);
-  }
+  // Colors and fonts are defined in main.css for this instance.
+  // Remote config overrides are disabled to prevent Settings sheet
+  // from overwriting the ICCS brand design.
+  // To re-enable for a different instance, uncomment the blocks below.
 }
 
 /**
