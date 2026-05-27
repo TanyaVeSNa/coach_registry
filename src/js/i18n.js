@@ -22,6 +22,10 @@ const dictionary = {
     ru: 'Найти коуча',
     el: 'Βρείτε Coach',
   },
+  navHome: {
+    en: 'Home',
+    ru: 'На главную',
+  },
   pageTitleLine1: {
     en: 'ICCS recommends',
     ru: 'ICCS рекомендует',

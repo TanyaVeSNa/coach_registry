@@ -206,15 +206,32 @@
   margin: 0;
 }
 
-.icf-hero__lang {
+.icf-hero__nav {
   position: absolute;
   top: 52px;
   right: 24px;
   z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icf-hero__home-link {
+  font-family: var(--icf-font-heading);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--icf-text-primary);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+
+.icf-hero__home-link:hover {
+  opacity: 1;
 }
 
 @media (min-width: 769px) {
-  .icf-hero__lang {
+  .icf-hero__nav {
     right: calc((100vw - var(--icf-max-width)) / 2);
   }
 }
