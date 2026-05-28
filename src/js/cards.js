@@ -191,10 +191,11 @@ function renderAvatar(coach) {
  * @returns {string} HTML
  */
 function renderBadge(level) {
+  if (!level || level === 'Member') return '';
   const config = BADGE_CONFIG[level] || BADGE_CONFIG.Member;
   const icon = config.icon ? `${config.icon} ` : '';
   const noIcfSuffix = ['ACSTH', 'Level 1', 'Level 2'];
-  const label = level === 'Member' ? 'ICF' : noIcfSuffix.includes(level) ? level : `${level} ICF`;
+  const label = noIcfSuffix.includes(level) ? level : `${level} ICF`;
 
   return `<span class="icf-badge ${config.cssClass}"
     >${icon}${esc(label)}</span>`;
