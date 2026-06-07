@@ -631,27 +631,12 @@ function buildEditFormHTML(profile) {
       <div class="icf-form__section">
         <h3 class="icf-form__section-title"
           data-i18n="regSectionAbout">${esc(t('regSectionAbout'))}</h3>
-        ${renderBioLangSelect(
-          uid('bio1-lang'), 'regLabelBio1Lang',
-          BIO_LANG_OPTIONS, true, profile.bio1Language
-        )}
         ${renderBioTextarea({
           id: uid('bio1'),
           labelKey: 'regLabelBio',
           placeholderKey: 'regPlaceholderBio1',
           required: true,
           value: profile.bio1,
-        })}
-        ${renderBioLangSelect(
-          uid('bio2-lang'), 'regLabelBio2Lang',
-          BIO_LANG_OPTIONS, false, profile.bio2Language
-        )}
-        ${renderBioTextarea({
-          id: uid('bio2'),
-          labelKey: 'regLabelBio2',
-          placeholderKey: 'regPlaceholderBio1',
-          required: false,
-          value: profile.bio2,
         })}
       </div>
 
@@ -780,9 +765,9 @@ function collectEditFormData(form) {
     priceMax: parseInt(val(uid('price-max')), 10) || 0,
     byRequest,
     bio1: val(uid('bio1')),
-    bio1Language: val(uid('bio1-lang')),
-    bio2: val(uid('bio2')),
-    bio2Language: val(uid('bio2-lang')),
+    bio1Language: 'ru',
+    bio2: '',
+    bio2Language: '',
     bio: val(uid('bio1')),
     email: val(uid('email')),
     whatsapp: val(uid('whatsapp')),

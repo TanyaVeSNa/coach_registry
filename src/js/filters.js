@@ -42,6 +42,7 @@ const PRICE_RANGES = [
   { key: '50to100', labelKey: 'price50to100', min: 5000, max: 10000 },
   { key: '100to150', labelKey: 'price100to150', min: 10000, max: 20000 },
   { key: 'over150', labelKey: 'priceOver150', min: 20001, max: Infinity },
+  { key: 'byRequest', labelKey: 'priceByRequest', min: -1, max: -1 },
 ];
 
 /** ICF credential levels displayed as filter chips */
@@ -167,8 +168,13 @@ export function applyFilters(coaches, state) {
  * @returns {boolean}
  */
 function coachMatchesPriceRange(coach, range) {
-  // "On request" coaches have no price — exclude from price filtering
-  if (coach.priceMin === 0 && coach.priceMax === 0) return false;
+  const isOnRequest = coach.priceMin === 0 && coach.priceMax === 0;
+
+  // "By request" filter matches coaches with no price set
+  if (range.key === 'byRequest') return isOnRequest;
+
+  // "On request" coaches don't match numeric price ranges
+  if (isOnRequest) return false;
 
   const coachMin = coach.priceMin || 0;
   const coachMax = coach.priceMax || coach.priceMin || 0;

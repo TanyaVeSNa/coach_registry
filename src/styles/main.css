@@ -766,7 +766,7 @@
 
 .icf-card__bio {
   font-size: 14px;
-  color: var(--icf-text-secondary);
+  color: var(--icf-text-primary);
   line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -859,7 +859,7 @@
 
 .icf-modal__bio {
   font-size: 14px;
-  color: var(--icf-text-secondary);
+  color: var(--icf-text-primary);
   line-height: 1.7;
   white-space: pre-line;
 }

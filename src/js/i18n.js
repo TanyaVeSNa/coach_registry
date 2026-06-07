@@ -285,6 +285,11 @@ const dictionary = {
     ru: '20000\u20bd+',
     el: '20000\u20bd+',
   },
+  priceByRequest: {
+    en: 'By request',
+    ru: '\u041f\u043e \u0437\u0430\u043f\u0440\u043e\u0441\u0443',
+    el: 'By request',
+  },
 
   // =========================================================
   // Registration Form

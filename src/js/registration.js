@@ -454,29 +454,14 @@ function renderBioTextarea(opts) {
  * @returns {string}
  */
 function renderBioFields() {
-  const bio1LangId = uid('bio1-lang');
   const bio1Id = uid('bio1');
-  const bio2LangId = uid('bio2-lang');
-  const bio2Id = uid('bio2');
 
   return `
-    ${renderBioLangSelect(
-      bio1LangId, 'regLabelBio1Lang', BIO_LANG_OPTIONS, true
-    )}
     ${renderBioTextarea({
       id: bio1Id,
       labelKey: 'regLabelBio',
       placeholderKey: 'regPlaceholderBio1',
       required: true,
-    })}
-    ${renderBioLangSelect(
-      bio2LangId, 'regLabelBio2', BIO_LANG_OPTIONS, false
-    )}
-    ${renderBioTextarea({
-      id: bio2Id,
-      labelKey: 'regLabelBio2',
-      placeholderKey: 'regPlaceholderBio1',
-      required: false,
     })}`;
 }
 
@@ -822,9 +807,9 @@ function collectFormData(form) {
     priceMax: parseInt(val(uid('price-max')), 10) || 0,
     byRequest,
     bio1: val(uid('bio1')),
-    bio1Lang: val(uid('bio1-lang')),
-    bio2: val(uid('bio2')),
-    bio2Lang: val(uid('bio2-lang')),
+    bio1Lang: 'ru',
+    bio2: '',
+    bio2Lang: '',
     bio: val(uid('bio1')),
     email: val(uid('email')),
     whatsapp: val(uid('whatsapp')),
