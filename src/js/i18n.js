@@ -44,9 +44,9 @@ const dictionary = {
     el: 'Εγγραφή Coach',
   },
   regPageTitleHighlight: {
-    en: 'ICF Cyprus',
-    ru: 'ICF Cyprus',
-    el: 'ICF Cyprus',
+    en: 'ICCS',
+    ru: 'ICCS',
+    el: 'ICCS',
   },
 
   // Filter labels
@@ -162,14 +162,14 @@ const dictionary = {
     el: 'Επικοινωνία:',
   },
   contactMessage: {
-    en: 'Hello, {name}! I found you in the ICF Cyprus coach registry and would like to learn about coaching sessions. I look forward to discussing details.',
-    ru: 'Здравствуйте, {name}! Нашёл(а) вас в реестре коучей ICF Cyprus и хотел(а) бы узнать о возможности коучинговых сессий. Буду рад(а) обсудить детали.',
-    el: 'Γεια σας, {name}! Σας βρήκα στο μητρώο coaches ICF Cyprus και θα ήθελα να μάθω για τις δυνατότητες coaching. Ανυπομονώ να συζητήσουμε.',
+    en: 'Hello, {name}! I found you in the ICCS coach registry and would like to learn about coaching sessions. I look forward to discussing details.',
+    ru: 'Здравствуйте, {name}! Нашёл(а) вас в реестре коучей ICCS и хотел(а) бы узнать о возможности коучинговых сессий. Буду рад(а) обсудить детали.',
+    el: 'Γεια σας, {name}! Σας βρήκα στο μητρώο coaches ICCS και θα ήθελα να μάθω για τις δυνατότητες coaching. Ανυπομονώ να συζητήσουμε.',
   },
   contactSubject: {
-    en: 'Coaching inquiry from ICF Cyprus registry',
-    ru: 'Запрос о коучинге из реестра ICF Cyprus',
-    el: 'Ερώτημα coaching από το μητρώο ICF Cyprus',
+    en: 'Coaching inquiry from ICCS registry',
+    ru: 'Запрос о коучинге из реестра ICCS',
+    el: 'Ερώτημα coaching από το μητρώο ICCS',
   },
   socialsLabel: {
     en: 'Profiles:',
@@ -729,9 +729,9 @@ const dictionary = {
 
   // Success / error messages
   regSuccess: {
-    en: 'Your profile has been submitted! The ICF Cyprus administrator will review it and you\u2019ll receive a confirmation by email.',
-    ru: '\u0412\u0430\u0448 \u043F\u0440\u043E\u0444\u0438\u043B\u044C \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D! \u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440 ICF Cyprus \u0440\u0430\u0441\u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u0437\u0430\u044F\u0432\u043A\u0443, \u0438 \u0432\u044B \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u0435 \u043F\u043E email.',
-    el: '\u03A4\u03BF \u03C0\u03C1\u03BF\u03C6\u03AF\u03BB \u03C3\u03B1\u03C2 \u03C5\u03C0\u03BF\u03B2\u03BB\u03AE\u03B8\u03B7\u03BA\u03B5! \u039F \u03B4\u03B9\u03B1\u03C7\u03B5\u03B9\u03C1\u03B9\u03C3\u03C4\u03AE\u03C2 \u03C4\u03BF\u03C5 ICF Cyprus \u03B8\u03B1 \u03C4\u03BF \u03B5\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9 \u03BA\u03B1\u03B9 \u03B8\u03B1 \u03BB\u03AC\u03B2\u03B5\u03C4\u03B5 \u03B5\u03C0\u03B9\u03B2\u03B5\u03B2\u03B1\u03AF\u03C9\u03C3\u03B7 \u03BC\u03AD\u03C3\u03C9 email.',
+    en: 'Your profile has been submitted! The ICCS administrator will review it and you\u2019ll receive a confirmation by email.',
+    ru: '\u0412\u0430\u0448 \u043F\u0440\u043E\u0444\u0438\u043B\u044C \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D! \u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440 ICCS \u0440\u0430\u0441\u0441\u043C\u043E\u0442\u0440\u0438\u0442 \u0437\u0430\u044F\u0432\u043A\u0443, \u0438 \u0432\u044B \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D\u0438\u0435 \u043F\u043E email.',
+    el: '\u03A4\u03BF \u03C0\u03C1\u03BF\u03C6\u03AF\u03BB \u03C3\u03B1\u03C2 \u03C5\u03C0\u03BF\u03B2\u03BB\u03AE\u03B8\u03B7\u03BA\u03B5! \u039F \u03B4\u03B9\u03B1\u03C7\u03B5\u03B9\u03C1\u03B9\u03C3\u03C4\u03AE\u03C2 \u03C4\u03BF\u03C5 ICCS \u03B8\u03B1 \u03C4\u03BF \u03B5\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9 \u03BA\u03B1\u03B9 \u03B8\u03B1 \u03BB\u03AC\u03B2\u03B5\u03C4\u03B5 \u03B5\u03C0\u03B9\u03B2\u03B5\u03B2\u03B1\u03AF\u03C9\u03C3\u03B7 \u03BC\u03AD\u03C3\u03C9 email.',
   },
   regErrorGeneral: {
     en: 'Something went wrong. Please try again.',
@@ -751,9 +751,9 @@ const dictionary = {
     el: '\u0395\u03B3\u03B3\u03C1\u03B1\u03C6\u03AE \u03C3\u03C4\u03BF \u03BC\u03B7\u03C4\u03C1\u03CE\u03BF',
   },
   backToCatalog: {
-    en: '\u2190 ICF Cyprus Coach Registry',
-    ru: '\u2190 \u041A\u0430\u0442\u0430\u043B\u043E\u0433 \u043A\u043E\u0443\u0447\u0435\u0439 ICF Cyprus',
-    el: '\u2190 \u039C\u03B7\u03C4\u03C1\u03CE\u03BF Coaches ICF Cyprus',
+    en: '\u2190 ICCS Coach Registry',
+    ru: '\u2190 \u041A\u0430\u0442\u0430\u043B\u043E\u0433 \u043A\u043E\u0443\u0447\u0435\u0439 ICCS',
+    el: '\u2190 \u039C\u03B7\u03C4\u03C1\u03CE\u03BF Coaches ICCS',
   },
 
   // Card preview
@@ -772,9 +772,9 @@ const dictionary = {
     el: '\u0395\u03C0\u03B5\u03BE\u03B5\u03C1\u03B3\u03B1\u03C3\u03AF\u03B1 \u03C0\u03C1\u03BF\u03C6\u03AF\u03BB',
   },
   editPageTitleHighlight: {
-    en: 'ICF Cyprus',
-    ru: 'ICF Cyprus',
-    el: 'ICF Cyprus',
+    en: 'ICCS',
+    ru: 'ICCS',
+    el: 'ICCS',
   },
   editEmailLabel: {
     en: 'Your email',
@@ -962,12 +962,12 @@ function updateDOM() {
  * Override brand-specific i18n keys with values from
  * the remote config (Settings sheet).
  *
- * Replaces "ICF Cyprus" with the configured brand name
+ * Replaces "ICCS" with the configured brand name
  * in all relevant dictionary entries.
  *
- * @param {string} brandName — e.g. "ICF Cyprus" or "Coaching School X"
+ * @param {string} brandName — e.g. "ICCS" or "Coaching School X"
  * @param {Object} [opts]
- * @param {string} [opts.registryName] — e.g. "ICF Cyprus Coach Registry"
+ * @param {string} [opts.registryName] — e.g. "ICCS Coach Registry"
  * @param {string} [opts.location] — e.g. "Cyprus"
  */
 export function setBrandOverrides(brandName, opts = {}) {
@@ -988,13 +988,13 @@ export function setBrandOverrides(brandName, opts = {}) {
     }
   });
 
-  // Replace "ICF Cyprus" in text strings
+  // Replace "ICCS" in text strings
   const replaceInAll = (key) => {
     if (!dictionary[key]) return;
     SUPPORTED_LANGS.forEach((lang) => {
       if (dictionary[key][lang]) {
         dictionary[key][lang] = dictionary[key][lang]
-          .replace(/ICF Cyprus/g, brandName);
+          .replace(/ICCS/g, brandName);
       }
     });
   };
