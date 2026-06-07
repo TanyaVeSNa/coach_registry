@@ -628,11 +628,14 @@
 }
 
 .icf-card:hover .icf-card__name,
-.icf-card:hover .icf-card__bio,
 .icf-card:hover .icf-meta__item,
 .icf-card:hover .icf-contact-label,
 .icf-card:hover .icf-socials__label {
   color: rgba(255, 255, 255, 0.85);
+}
+
+.icf-card:hover .icf-card__bio {
+  color: var(--icf-text-primary);
 }
 
 .icf-card:hover .icf-tag {

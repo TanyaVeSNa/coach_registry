@@ -299,7 +299,14 @@ function getFormatMeta(format, city) {
  * @returns {string} HTML
  */
 function renderMeta(coach) {
-  const langText = coach.languages.join(', ');
+  const LANG_DISPLAY = {
+    'english': 'Английский',
+    'russian': 'Русский',
+    'greek': 'Греческий',
+  };
+  const langText = coach.languages
+    .map((l) => LANG_DISPLAY[l.toLowerCase()] || l)
+    .join(', ');
   const formatItems = getFormatMeta(coach.format, coach.city);
   const priceText = formatPrice(coach.priceMin, coach.priceMax);
 
